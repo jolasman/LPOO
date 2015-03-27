@@ -37,38 +37,64 @@ public class Jogo {
 	private  int dorme;
 
 
-
+/**
+ * retorna o valor do tamanho do labirinto
+ * @return tamanho do labirinto
+ */
 	public  int getTAMANHO() {
 		return TAMANHO;
 	}
 
-
+/**
+ * coloca o valor do tamanho do labirinto o valor recebido como parametro
+ * @param tAMANHO tamanho do labirinto
+ */
 	public  void setTAMANHO(int tAMANHO) {
 		TAMANHO = tAMANHO;
 	}
 
-
+/**
+ * retorna o labirinto em execucao
+ * @return labirinto
+ */
 	public char[][] getLabirinto() {
 		return labirinto;
 	}
 
-
+/**
+ * coloca o novo valor recebido como parametro para o labirinto
+ * @param labirinto
+ */
 	public  void setLabirinto(char[][] labirinto) {
 		this.labirinto = labirinto;
 	}
 
-
+/**
+ * retorna o valor da posicao do heroi
+ * @return posicao heroi
+ */
 	public  Heroi getHeroi() {
 		return heroi;
 	}
 
-
+/**
+ * coloca o valor da posicao do heroi passado por parametro
+ * @param heroi posicao do heroi
+ */
 	public  void setHeroi(Heroi heroi) {
 		this.heroi = heroi;
 	}
 
-
-
+/**
+ * inicializa os dados de jogo de forma a que seja contruido o labirinto com os objectos integrantes do jogo
+ * @param labirint mapa do labirinto de jogo
+ * @param tamanho do labirinto
+ * @param numDrag  numero de dragoes a desenhar no labirinto
+ * @param cosp se o dragao cospe fogo ou nao (1 para sim, 2 para nao)
+ * @param dorm se dragao dorme ou nao (1 para sim, 2 para nao)
+ * @param and se o dragao anda ou nao (1 para sim, 2 para nao)
+ * @param mod o modo de jogo (0 para aleatorio, 1 statico)
+ */
 	public Jogo(char[][] labirint, int tamanho, int numDrag ,int cosp,int dorm, int and,int mod){
 
 		dorme=dorm;
@@ -102,7 +128,11 @@ public class Jogo {
 
 	}
 
-
+/**
+ * faz os movimentos do heroi e dos dragoes
+ * @param direcao sitio para onde se move o heroi
+ * @return false se o heroi morrer ou se chegar ao fim do jogo , true se os movimentos ocurrerem normalmente
+ */
 	public  boolean joga(String direcao){
 
 		moveDragoes();
@@ -115,11 +145,12 @@ public class Jogo {
 			return false;
 
 		return true;
-
-
 	}
 
-
+/**
+ * verifica se todos os dragoes estao adormecidos
+ * @return false se algum dragao nao estiver a dormir, true se todos os dragoes estiverem a dormir
+ */
 	public boolean dragoesAdormecidos(){
 		
 		for(int i=0;i<numDragoes;i++){
@@ -130,7 +161,17 @@ public class Jogo {
 		return true;
 	}
 
-	
+	/**
+	 * funcao que adormece os dragoes e verifica os casos em que o dragao esta a dormir em cima de objectos do jogo se a opcao adormece estiver ligada
+	 * se estiver a dormir em cima do escudo o caracter a aparecer e o 'c'
+	 * se estiver a dormir em cima do escudo o caracter a aparecer e o 'f'
+	 * se estiver a dormir numa casa vazia o caracter a aparecer e o 'd
+	 * 
+	 * se nao estiver ligada a opcao adormece:
+	 * se estiver  em cima do escudo o caracter a aparecer e o 'C'
+	 * se estiver  em cima do escudo o caracter a aparecer e o 'F'
+	 * se estiver numa casa vazia o caracter a aparecer e o 'D'
+	 */
 	public  void adormeceDragoes(){
 
 		if(dorme==1){
@@ -168,7 +209,11 @@ public class Jogo {
 	}
 
 
-
+/**
+ * coloca a posiccao actual do heroi a branco e coloca o heroi na posicao para onde houve o movimento
+ * @param Y posicao Y final do heroi
+ * @param X posicao X final do heroi
+ */
 	public  void desloca(int Y, int X){
 		labirinto[heroi.getHeroiY()][heroi.getHeroiX()]=ESPACO;
 		heroi.setHeroiY(heroi.getHeroiY()+Y);
@@ -176,16 +221,26 @@ public class Jogo {
 		labirinto[heroi.getHeroiY()][heroi.getHeroiX()]=heroi.getCarater();
 	}
 
+	/**
+	 * acede ao numero de dardos disponiveis para o heroi
+	 * @return numero de dados disponiveis
+	 */
 	public  int getDardosDisponiveis() {
 		return dardosDisponiveis;
 	}
 
-
+/**
+ * actualiza o valor dos dardos disponiveis com o valor recebido como parametro
+ * @param dardosDisponiveis
+ */
 	public  void setDardosDisponiveis(int dardosDisponiveis) {
 		this.dardosDisponiveis = dardosDisponiveis;
 	}
 
-
+/**
+ * esta funcao recebe um parametro a indicar a direccao para onde o heroi se vai mover
+ * @param s direccao do movimento do heroi
+ */
 	public  void andaUm(String s)
 	{
 
@@ -200,7 +255,12 @@ public class Jogo {
 
 	}
 
-
+/**
+ * funcao que verifica o movimento dos dragoes
+ * nesta funcao por definicao o dragao adormece e anda aleatoriamente.
+ * se estiver a dormir o dragao nao se movimenta, se estiver acordado move-se em cada umas das quatro direccoes
+ * @return 0 se o dragao nao se move e morre e 1 se o dragao se move
+ */
 	public  int moveDragoes(){
 
 
@@ -268,6 +328,14 @@ public class Jogo {
 
 	}
 
+	/**
+	 * Se nao houver dardos a funcao retorna true
+	 * se houver dardos e visto o numero de dragoes, e morto um caso esteja na mesma coluna ou linha que o heroi sem parede pelo meio
+	 * e o numero de dardos decrementado tal como o numero de dragoes
+	 * @param X e a posicao em x
+	 * @param Y e a posicao em y
+	 * @return true quando nao tem mais dardos
+	 */
 	public  boolean mataComDardo(int X,int Y){
 
 		if(dardosDisponiveis==0)
@@ -284,8 +352,9 @@ public class Jogo {
 
 	}
 
-
-
+/**
+ * ve o numero de dragoes e remove dragao caso o heroi o mate
+ */
 	public  void mataDragao(){
 
 		for(int i=0;i<numDragoes;i++){
@@ -295,6 +364,12 @@ public class Jogo {
 		}
 	}
 
+	/**
+	 * verifica se o dragao matou ou nao o heroi
+	 * @param X e a posicao em x
+	 * @param Y e a posicao em Y
+	 * @return true se o dragao matar o heroi e false se o nao mata o heroi
+	 */
 	public  boolean verificaDragoes(int X,int Y){
 
 		for(int i=0;i<numDragoes;i++){
@@ -306,8 +381,11 @@ public class Jogo {
 		return false;
 	}
 
+	/**
+	 * verifica se todos os dragoes estao mortos
+	 * @return false se algum dragao estiver vivo e true se estiverem todos mortos
+	 */
 	public  boolean dragoesMortos(){
-
 
 		for(int i=0;i<numDragoes;i++){
 
@@ -316,11 +394,15 @@ public class Jogo {
 		}
 
 		return true;
-
-
 	}
-
-
+	
+/**
+ * 
+ * @param Y
+ * @param X
+ * @param direcao
+ * @return
+ */
 	public  int verificaAtualiza(int Y,int X,String direcao){
 
 		mataComDardo(X,Y);
@@ -377,9 +459,16 @@ public class Jogo {
 		return 0;
 	}
 
+	/**
+	 * verifica se o jogo pode prosseguir e para onde mover o heroi
+	 * se o heroi morrer o heroi nao se move e acaba o jogo
+	 * se o heroi chegar a saida e o fim do jogo
+	 * para cada uma das quatro direcoes o horoi movimenta-se e continua o jogo
+	 * @param direcao movimenta para a direita,esquerda,cima ou baixo
+	 * @return 0 para acabar o jogo, 1 para continuar o jogo
+	 */
 	public  int moveHeroi(String direcao){
 
-		
 		if(heroi.isMorto())
 			return 0;
 		
@@ -406,12 +495,4 @@ public class Jogo {
 		return 0;
 
 	}
-
-
-
-
-
-
-
-
 }
