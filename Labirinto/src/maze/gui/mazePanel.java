@@ -38,7 +38,7 @@ public class mazePanel extends JPanel implements KeyListener {
 	BufferedImage dragonEspada;
 	BufferedImage dragonEscudo;
 	BufferedImage dragonDardo;
-	BufferedImage rip;
+
 	BufferedImage dragonDormirEspada;
 	BufferedImage dragonDormirEscudo;
 	BufferedImage dragonDormirDardo;
@@ -57,7 +57,6 @@ public class mazePanel extends JPanel implements KeyListener {
 		sword =ImageIO.read(new File("espada2.jpg"));
 		dardo =ImageIO.read(new File("dardo.jpg"));
 		shield=ImageIO.read(new File("escudo.jpg"));
-		//rip=ImageIO.read(new File("rip.png"));
 		
 		hero=ImageIO.read(new File("Heroi.jpg"));
 		heroiEscudado=ImageIO.read(new File("Heroi_escudado.jpg")); 
