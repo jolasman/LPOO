@@ -44,6 +44,7 @@ public class mazePanel extends JPanel implements KeyListener {
 	BufferedImage dragonDormirDardo;
 
 	private int X, Y;
+	private boolean acabou=false;
 
 	private int spacing=50;
 
@@ -161,16 +162,7 @@ public class mazePanel extends JPanel implements KeyListener {
 
 	}
 
-	public void novoJogo(){
-		int modo=0;
-		MazeBuilder gerador= new MazeBuilder();
-		gerador.setSize(12);
-		gerador.setMazeType(modo);
-		Maze maze = gerador.getMaze();
-		jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,1,1,1,modo);
 
-
-	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
@@ -194,11 +186,17 @@ public class mazePanel extends JPanel implements KeyListener {
 
 		repaint();
 		if(jogo.getHeroi().isMorto()||jogo.getHeroi().isFimJogo())
-			novoJogo();
-		repaint();
+				acabou=true;
 
 
+	}
 
+	public boolean isAcabou() {
+		return acabou;
+	}
+
+	public void setAcabou(boolean acabou) {
+		this.acabou = acabou;
 	}
 
 	@Override
