@@ -428,7 +428,8 @@ public class Jogo {
 			andaUm(direcao);
 		}
 		else if (cospe==2 && heroi.isArmado() && labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==DRAGAO ||
-				cospe==2 && heroi.isArmado() && labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=='d'){
+				cospe==2 && heroi.isArmado() && labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=='d'
+				||cospe==1 && heroi.isArmado() && labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=='d'){
 			andaUm(direcao);
 			mataDragao();
 		}
