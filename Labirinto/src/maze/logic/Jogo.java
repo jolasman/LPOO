@@ -396,6 +396,11 @@ public class Jogo {
 		return true;
 	}
 	
+	public boolean saidaPossivel(){
+		
+		return dragoesMortos()&&heroi.isArmado();
+	}
+	
 /**
  * 
  * @param Y
@@ -403,11 +408,12 @@ public class Jogo {
  * @param direcao
  * @return
  */
+	
 	public  int verificaAtualiza(int Y,int X,String direcao){
 
 		mataComDardo(X,Y);
 
-		if(labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==SAIDA && dragoesMortos() && heroi.isArmado())
+		if(labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==SAIDA && saidaPossivel())
 		{
 			labirinto[heroi.getHeroiY()][heroi.getHeroiX()]=ESPACO;
 			labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=heroi.getCarater();

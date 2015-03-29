@@ -23,14 +23,19 @@ public class mazePanel extends JPanel implements KeyListener {
 	BufferedImage grass; //done
 	BufferedImage dragon; //done
 	BufferedImage sword; //done
-	BufferedImage porta; //done
+	
+	
+	BufferedImage saidaPossivel; //done
+	BufferedImage saidaImpossivel;
+	
+	
 	BufferedImage dardo; //done
 	BufferedImage shield; //done
 	BufferedImage heroiArmado;  
 	BufferedImage heroiEscudado;
 	BufferedImage heroiDardo;
 	BufferedImage heroiEscudoDardo;
-
+	BufferedImage heroMorto;
 	BufferedImage heroiAmbos; //espada escudo
 	BufferedImage heroiAmbosDardo;
 
@@ -53,7 +58,8 @@ public class mazePanel extends JPanel implements KeyListener {
 
 		wall=ImageIO.read(new File("brick.jpg"));
 		grass=ImageIO.read(new File("grass1p.png"));
-		porta =ImageIO.read(new File("bricknovo.jpg"));
+		saidaImpossivel=ImageIO.read(new File("saidaImpossivel.jpg"));
+		saidaPossivel=ImageIO.read(new File("saidaPossivel.jpg"));
 
 		sword =ImageIO.read(new File("espada2.jpg"));
 		dardo =ImageIO.read(new File("dardo.jpg"));
@@ -66,6 +72,7 @@ public class mazePanel extends JPanel implements KeyListener {
 		heroiAmbos=ImageIO.read(new File("hero_Armado_escudado.jpg")); 
 		heroiAmbosDardo=ImageIO.read(new File("hero_Armado_escudado_dart.jpg")); 
 		heroiEscudoDardo=ImageIO.read(new File("Heroi_escudado_dardos.jpg")); 
+		heroMorto=ImageIO.read(new File("morto.png")); 
 
 
 		dragon =ImageIO.read(new File("Dragao_normal.jpg"));
@@ -99,8 +106,12 @@ public class mazePanel extends JPanel implements KeyListener {
 		for(int i=0;i<jogo.getTAMANHO();i++)
 			for(int j=0;j<jogo.getTAMANHO();j++)	
 			{
-
-				if(labirinto[j][i]=='X')
+				
+				
+				if((labirinto[j][i]=='K' || labirinto[j][i]=='O' || labirinto[j][i]=='A'
+						|| labirinto[j][i]=='H') && jogo.getHeroi().isMorto())
+					g.drawImage(heroMorto, i*ratioH, j*ratioV, ratioH,ratioV , null); 
+				else if(labirinto[j][i]=='X')
 					g.drawImage(wall, i*ratioH, j*ratioV, ratioH,ratioV , null);
 				else if(labirinto[j][i]==' ')
 					g.drawImage(grass, i*ratioH, j*ratioV, ratioH,ratioV , null);
@@ -110,8 +121,10 @@ public class mazePanel extends JPanel implements KeyListener {
 					g.drawImage(dragon, i*ratioH, j*ratioV, ratioH,ratioV , null);
 				else if(labirinto[j][i]=='E')
 					g.drawImage(sword, i*ratioH, j*ratioV, ratioH,ratioV , null);
-				else if(labirinto[j][i]=='S')
-					g.drawImage(porta, i*ratioH, j*ratioV, ratioH,ratioV , null);
+				else if(labirinto[j][i]=='S' && jogo.saidaPossivel())
+					g.drawImage(saidaPossivel, i*ratioH, j*ratioV, ratioH,ratioV , null);
+				else if(labirinto[j][i]=='S' && !jogo.saidaPossivel())
+					g.drawImage(saidaImpossivel, i*ratioH, j*ratioV, ratioH,ratioV , null);
 				else if(labirinto[j][i]=='-')
 					g.drawImage(dardo, i*ratioH, j*ratioV, ratioH,ratioV , null);
 				else if(labirinto[j][i]=='d')
@@ -154,6 +167,7 @@ public class mazePanel extends JPanel implements KeyListener {
 				
 				else if(jogo.getDardosDisponiveis() ==0 && labirinto[j][i]=='A')
 					g.drawImage(heroiArmado, i*ratioH, j*ratioV, ratioH,ratioV , null); 
+			
 
 
 			}
