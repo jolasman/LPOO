@@ -19,13 +19,12 @@ public class mazeFrame extends JFrame{
 	 private CardLayout cl = new CardLayout();
 	 private JButton firstPanel ;
 	 private mazePanel secondPanel;
-
-	 
 	 
 	 public mazeFrame() throws IOException {
 			JFrame frame= new JFrame("Maze Frame");
 				firstPanel= new JButton("Novo Jogo");
 			 	secondPanel = new mazePanel();
+			
 			 
 			 
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,6 +35,7 @@ public class mazeFrame extends JFrame{
 
 	        add(firstPanel, "first");
 	        add(secondPanel, "second");
+	    
 	        firstPanel.addActionListener(new ActionListener(){
 
 				@Override
@@ -46,6 +46,11 @@ public class mazeFrame extends JFrame{
 				}
 	        	
 	        });
+	        
+	       
+	        
+	        
+	    	        	
 	        
 	        setLocationRelativeTo(null);
 	        setVisible(true);

@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import maze.logic.Dragao;
 import maze.logic.Heroi;
 import maze.logic.Jogo;
 import maze.logic.Maze;
@@ -150,6 +151,12 @@ public class Testes {
 		Heroi heroi= jogo.getHeroi();
 
 		jogo.joga("d");
+		
+		
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
+		
 
 		assertEquals(2,heroi.getHeroiX());
 		assertEquals(1,heroi.getHeroiY());
@@ -170,6 +177,9 @@ public class Testes {
 
 		assertEquals(1,heroi.getHeroiX());
 		assertEquals(1,heroi.getHeroiY());
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 
 	}
 	@Test
@@ -183,7 +193,9 @@ public class Testes {
 
 		Heroi heroi= jogo.getHeroi();
 
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 
 		jogo.joga("d");
 		jogo.joga("d");
@@ -201,7 +213,7 @@ public class Testes {
 
 
 
-
+		
 
 		assertEquals(true,heroi.isArmado());
 		assertEquals(true,heroi.isArmado());
@@ -218,8 +230,10 @@ public class Testes {
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,2,2,2,1);
 
 		Heroi heroi= jogo.getHeroi();
-
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
+		
 		jogo.joga("s");
 
 
@@ -235,7 +249,9 @@ public class Testes {
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,2,2,2,1);
 
 		Heroi heroi= jogo.getHeroi();
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		jogo.joga("d");
 		jogo.joga("d");
 		jogo.joga("d");
@@ -268,7 +284,9 @@ public class Testes {
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,2,2,2,1);
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		Heroi heroi= jogo.getHeroi();
 
 		String caminho[] ={"d","d","d","s","s","s","s","a","a","a","s","s","s","w","w","w","w","w","w","w",
@@ -294,11 +312,12 @@ public class Testes {
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,2,2,2,1);
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		Heroi heroi= jogo.getHeroi();
 
 		String caminho[] ={"d","d","d","d","d","d","d","s","s","s","s","d"};
-
 
 		for(int i=0;i<caminho.length;i++){
 			jogo.joga(caminho[i]);
@@ -362,7 +381,9 @@ public class Testes {
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,1,2,2,1);
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		Heroi heroi= jogo.getHeroi();
 		heroi.setEscudado(true);
 
@@ -374,8 +395,6 @@ public class Testes {
 		jogo.joga("a");
 		jogo.joga("s");
 		jogo.joga("s");
-
-
 
 		assertEquals(true, heroi.isMorto());
 
@@ -389,13 +408,16 @@ public class Testes {
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,2,2,2,1);
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		Heroi heroi= jogo.getHeroi();
 		jogo.setDardosDisponiveis(1);
 		assertEquals(false, heroi.isMorto());
 		jogo.mataComDardo(0, 0);
 
 		assertEquals(true, jogo.dragoesMortos());
+		assertEquals(0, jogo.getDardosDisponiveis());
 
 	} 
 	@Test
@@ -406,7 +428,9 @@ public class Testes {
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
 		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),2,2,1,2,1);
-
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 		assertEquals(false,jogo.dragoesAdormecidos());
 
 		for(int i=0;i<100;i++){
@@ -416,8 +440,103 @@ public class Testes {
 		}
 
 		assertEquals(true, jogo.dragoesAdormecidos());
+	}
+	
+	
+	@Test
+	public void verificaAleatorio(){
+		
+		int modo=0;
+		MazeBuilder gerador= new MazeBuilder();
+		gerador.setMazeType(modo);
+		Maze maze = gerador.getMaze();
+		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),2,2,2,2,modo);
+		
+		boolean encontrouDragao=false;
+		boolean encontrouHeroi=false;
+		boolean encontrouEspada=false;
+
+		for(int i=0;i<maze.getTamanho();i++){
+			
+			for(int j=0;j<maze.getTamanho();j++){
+				
+				if(maze.getChar(i, j)=='D')
+					encontrouDragao=true;
+				else if(maze.getChar(i, j)=='H')
+					encontrouHeroi=true;
+				else if(maze.getChar(i, j)=='E')
+					encontrouEspada=true;
+			}
+			
+		}
+		
+		assertEquals(true,encontrouDragao);
+		assertEquals(true,encontrouEspada);
+		assertEquals(true,encontrouHeroi);
+		assertFalse(jogo.dragoesEmCimaDardo());
+		assertFalse(jogo.dragoesEmCimaEscudo());
+		assertFalse(jogo.dragoesEmCimaEspada());
 
 	}
+	
+
+	@Test
+	public void verificaPosicoesDragao(){
+		
+		int modo=1;
+		MazeBuilder gerador= new MazeBuilder();
+		gerador.setMazeType(modo);
+		Maze maze = gerador.getMaze();
+		Jogo jogo= new Jogo(maze.getDados(),maze.getTamanho(),2,2,2,1,modo);
+		
+		
+		Dragao dragao = jogo.retornaDragao();
+		
+		jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]='P';
+		
+		dragao.moveDragao(jogo.getLabirinto(), 1, 0);
+		
+		assertEquals(true,dragao.isEmCimaEscudo());
+		assertEquals('C',jogo.getLabirinto()[dragao.getDragaoY()][dragao.getDragaoX()]);
+		
+		dragao.moveDragao(jogo.getLabirinto(), -1, 0);
+		
+		assertEquals(false,dragao.isEmCimaEscudo());
+		assertEquals('P',jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]);
+		
+		jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]='E';
+		
+		dragao.moveDragao(jogo.getLabirinto(), 1, 0);
+		
+		assertEquals(true,dragao.isEmCimaEspada());
+		assertEquals('F',jogo.getLabirinto()[dragao.getDragaoY()][dragao.getDragaoX()]);
+		
+		dragao.moveDragao(jogo.getLabirinto(), -1, 0); 
+		
+		assertEquals(false,dragao.isEmCimaEspada());
+		assertEquals('E',jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]);
+		
+		
+	jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]='-';
+		
+		dragao.moveDragao(jogo.getLabirinto(), 1, 0);
+		
+		assertEquals(true,dragao.isEmCimaDardo());
+		assertEquals('W',jogo.getLabirinto()[dragao.getDragaoY()][dragao.getDragaoX()]);
+		
+		dragao.moveDragao(jogo.getLabirinto(), -1, 0); 
+		
+		assertEquals(false,dragao.isEmCimaDardo());
+		assertEquals('-',jogo.getLabirinto()[dragao.getDragaoY()+1][dragao.getDragaoX()]);
+		
+		
+			
+		
+		
+		
+	}
+	
+	
 	
 	
 

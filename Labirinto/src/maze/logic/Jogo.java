@@ -410,23 +410,25 @@ public class Jogo {
  */
 	
 	public  int verificaAtualiza(int Y,int X,String direcao){
-
-		mataComDardo(X,Y);
-
-		if(labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==SAIDA && saidaPossivel())
-		{
-			labirinto[heroi.getHeroiY()][heroi.getHeroiX()]=ESPACO;
-			labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=heroi.getCarater();
-			heroi.setFimJogo(true);
-			return 1;
-		}
-		else if(verificaDragoes(X,Y)  || verificaDragoes(0,0) )
+		
+		
+		
+		if(verificaDragoes(X,Y)  || verificaDragoes(0,0) )
 		{ 
 
 			if(heroi.isMorto())
 				return 1;
 			andaUm(direcao);
 			heroi.setMorto(true);
+			return 1;
+		}
+		mataComDardo(X,Y);
+		
+		if(labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==SAIDA && saidaPossivel())
+		{
+			labirinto[heroi.getHeroiY()][heroi.getHeroiX()]=ESPACO;
+			labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]=heroi.getCarater();
+			heroi.setFimJogo(true);
 			return 1;
 		}
 		else if(labirinto[heroi.getHeroiY()+Y][heroi.getHeroiX()+X]==ESPACO)
@@ -501,5 +503,35 @@ public class Jogo {
 
 		return 0;
 
+	}
+	
+	
+	
+	public boolean dragoesEmCimaEspada(){
+		for(int i=0;i<numDragoes;i++)
+			if(Dragoes[i].isEmCimaEspada())
+				return true;
+		
+		return false;
+	}
+	
+	public boolean dragoesEmCimaEscudo(){
+		for(int i=0;i<numDragoes;i++)
+			if(Dragoes[i].isEmCimaEscudo())
+				return true;
+		
+		return false;
+	}
+	public boolean dragoesEmCimaDardo(){
+		for(int i=0;i<numDragoes;i++)
+			if(Dragoes[i].isEmCimaDardo())
+				return true;
+		
+		return false;
+	}
+	
+	public Dragao retornaDragao(){ // para usar em testes
+		
+		return Dragoes[0];
 	}
 }

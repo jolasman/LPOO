@@ -204,7 +204,7 @@ public class Dragao {
 				emCimaDardo=false;
 				return true;
 			}
-			else if(labirinto[dragaoY+Y][dragaoX+X]==ESPACO){
+			else if(labirinto[dragaoY+Y][dragaoX+X]==ESPACO){ 
 				labirinto[dragaoY][dragaoX]=ESPACO;
 				dragaoY=dragaoY+Y;
 				dragaoX=dragaoX+X;

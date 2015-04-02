@@ -68,7 +68,7 @@ public class mazePanel extends JPanel implements KeyListener {
 		hero=ImageIO.read(new File("Heroi.jpg"));
 		heroiEscudado=ImageIO.read(new File("Heroi_escudado.jpg")); 
 		heroiArmado=ImageIO.read(new File("Heroi_espada.jpg")); 
-		heroiDardo=ImageIO.read(new File("Heroi_dardo.jpg")); 
+		heroiDardo=ImageIO.read(new File("Heroi_so_dardo.jpg")); 
 		heroiAmbos=ImageIO.read(new File("hero_Armado_escudado.jpg")); 
 		heroiAmbosDardo=ImageIO.read(new File("hero_Armado_escudado_dart.jpg")); 
 		heroiEscudoDardo=ImageIO.read(new File("Heroi_escudado_dardos.jpg")); 
@@ -92,6 +92,14 @@ public class mazePanel extends JPanel implements KeyListener {
 		jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,1,1,1,modo);
 
 
+	}
+
+	public static Jogo getJogo() {
+		return jogo;
+	}
+
+	public static void setJogo(Jogo jogo) {
+		mazePanel.jogo = jogo;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -147,8 +155,8 @@ public class mazePanel extends JPanel implements KeyListener {
 				//corrigir
 
 
-				else if(jogo.getDardosDisponiveis() >0 && labirinto[j][i]=='H' ){}
-					//g.drawImage(heroiDardo, i*ratioH, j*ratioV, ratioH,ratioV , null);
+				else if(jogo.getDardosDisponiveis() >0 && labirinto[j][i]=='H' )
+					g.drawImage(heroiDardo, i*ratioH, j*ratioV, ratioH,ratioV , null);
 
 				else if(labirinto[j][i]=='K' && jogo.getDardosDisponiveis() >=1  ) 
 					g.drawImage(heroiAmbosDardo, i*ratioH, j*ratioV, ratioH,ratioV , null);
