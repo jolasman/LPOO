@@ -1,8 +1,9 @@
 package maze.logic;
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Dragao {
+public class Dragao implements Serializable {
 
 	private static final char ESPACO = ' ';
 	private  static final char ESPADA ='E';

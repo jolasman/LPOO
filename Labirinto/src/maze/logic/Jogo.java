@@ -1,8 +1,9 @@
 package maze.logic;
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Jogo {
+public class Jogo implements Serializable{
 
 	private static final char ESCUDO = 'P';
 	private static final char ESPACO = ' ';

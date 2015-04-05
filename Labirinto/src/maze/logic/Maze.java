@@ -1,7 +1,9 @@
 package maze.logic;
 
+import java.io.Serializable;
 
-public abstract class Maze {
+
+public abstract class Maze implements Serializable{
 
 	public abstract int getTamanho();
 	

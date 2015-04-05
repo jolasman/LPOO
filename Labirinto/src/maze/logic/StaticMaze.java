@@ -1,7 +1,9 @@
 package maze.logic;
 
+import java.io.Serializable;
 
-public class StaticMaze extends Maze{
+
+public class StaticMaze extends Maze implements Serializable{
 
 	
 

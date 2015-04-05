@@ -9,7 +9,13 @@ import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
 import java.awt.LayoutManager;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -25,6 +31,9 @@ import javax.swing.BoxLayout;
 
 import java.awt.GridLayout;
 
+import maze.logic.Jogo;
+import maze.logic.Maze;
+import maze.logic.MazeBuilder;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.Component;
@@ -58,8 +67,9 @@ public class jogo {
 	JTextField textField = new JTextField(25);
 
 	private JFrame frame;
-	private JPanel painelJogo;
+	private mazePanel painelJogo;
 	Dialog dialog = new Dialog();
+	private boolean jogoIniciado=false;
 
 	/**
 	 * Launch the application.
@@ -90,118 +100,195 @@ public class jogo {
 	 */
 	private void initialize() throws IOException {
 		frame = new JFrame();
+		frame.setAutoRequestFocus(false);
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 		JPanel painelBisavo = new JPanel();
+
 		painelBisavo.setBackground(Color.MAGENTA);
 		frame.getContentPane().add(painelBisavo, BorderLayout.CENTER);
 		painelBisavo.setLayout(new CardLayout(0, 0));
-		
-		
+
+
 		JPanel painelAvo = new JPanel();
 		painelAvo.setBackground(Color.GRAY);
 		painelBisavo.add(painelAvo, "name_5355690780279");
 		painelAvo.setLayout(new CardLayout(0, 0));
-		painelAvo.setFocusable(true);
-		
+
 		JPanel painelPai = new JPanel();
 		painelPai.setBackground(Color.LIGHT_GRAY);
 		painelPai.setForeground(Color.BLACK);
 		painelAvo.add(painelPai, "name_7681047023173");
-	
-		painelJogo = new JPanel();
-		painelJogo.setBackground(Color.BLACK);
+
+		painelJogo = new mazePanel();
 		painelAvo.add(painelJogo, "name_7868442625847");
 		painelJogo.setFocusable(true);
-		
-		
-		
-		JPanel painelConfig = new JPanel();
-	
+
+		JButton continuar = new JButton("Continuar");
+		continuar.setFocusable(false);
+		continuar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+
+				if(jogoIniciado){
+					painelAvo.removeAll();
+					painelAvo.add(painelJogo);
+					painelAvo.repaint();
+					painelJogo.requestFocus();
+					painelAvo.revalidate();
+				}else
+					JOptionPane.showMessageDialog(null,"Ainda não iniciou nenhum jogo.\n","Aviso",JOptionPane.INFORMATION_MESSAGE);
+
+
+			}
+		});
+
+		JButton configurations = new JButton("Configurações");
+		configurations.setFocusable(false);
+		configurations.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dialog.setVisible(true);
+			}
+		});
+
+		JButton btnLoadGame = new JButton("Load Game");
+		btnLoadGame.setFocusable(false);
+		btnLoadGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+
+				FileInputStream fis = null;
+				ObjectInputStream ois = null;
+				try {
+					fis = new FileInputStream("ficheiro.dat");
+					ois = new ObjectInputStream(fis);
+					Object obj = ois.readObject();
+
+					(painelJogo).setJogo((Jogo)obj);
+					ois.close();
+
+
+					painelAvo.removeAll();
+					painelJogo.requestFocus();
+					painelAvo.add(painelJogo);
+					painelAvo.repaint();
+					painelAvo.revalidate();
+					jogoIniciado=true;
+					
+
+				} catch (Exception e) {
+					JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para carregar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		});
+
+		JButton btnSaveGame = new JButton("Save Game");
+		btnSaveGame.setFocusable(false);
+		btnSaveGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+
+				FileOutputStream fos = null;
+				ObjectOutputStream oos = null;
+				try {
+					Jogo jogo = ( painelJogo).getJogo();
+					fos = new FileOutputStream("ficheiro.dat");
+					oos = new ObjectOutputStream(fos);
+					oos.writeObject(jogo);
+					fos.close();
+				} catch (Exception e1) {
+					JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para gravar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+				}
+
+
+			}
+		});
+
 		JButton newGame = new JButton("Novo Jogo");
+		newGame.setFocusable(false);
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					painelJogo= new mazePanel(dialog.getModo(),dialog.getNumDragoes(),dialog.getTamanho(),dialog.getCospe(),
 							dialog.getAnda(),dialog.getDorme());
+
+					jogoIniciado=true;
+					painelAvo.removeAll();
+					painelJogo.requestFocus();
+					painelAvo.add(painelJogo);
+					painelAvo.repaint();
+					painelAvo.revalidate();
+
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-				painelAvo.removeAll();
-				painelAvo.add(painelJogo);
-				painelAvo.repaint();
-				painelJogo.requestFocus();
-				painelAvo.revalidate();
-				
-			}
-		});
-		painelPai.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		painelPai.add(newGame);
-		
-		JButton configurations = new JButton("Configurações");
-		configurations.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelAvo.removeAll();
-				painelAvo.add(painelConfig);
-				painelAvo.repaint();
-				painelAvo.revalidate();
-				dialog.setVisible(true);
-			}
-		});
-		
-		JButton continuar = new JButton("Continuar");
-		continuar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				painelAvo.removeAll();
-				painelAvo.add(painelJogo);
-				painelAvo.repaint();
-				painelJogo.requestFocus();
-				painelAvo.revalidate();
-				
-			}
-		});
-		painelPai.add(continuar);
-		painelPai.add(configurations);
-		
-		
-		painelConfig.setBackground(Color.LIGHT_GRAY);
-		painelAvo.add(painelConfig, "name_7667436044093");
-		JButton btnNewButton_2 = new JButton("Voltar");
-		btnNewButton_2.setAlignmentY(Component.BOTTOM_ALIGNMENT);
-		btnNewButton_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				painelAvo.removeAll();
-				painelAvo.add(painelPai);
-				painelAvo.repaint();
-				painelAvo.revalidate();
+
 
 			}
 		});
-		painelConfig.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		painelConfig.add(btnNewButton_2);
-		
-		
-	
-		
-		
+		GroupLayout gl_painelPai = new GroupLayout(painelPai);
+		gl_painelPai.setHorizontalGroup(
+				gl_painelPai.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_painelPai.createSequentialGroup()
+						.addGap(113)
+						.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(18)
+						.addComponent(btnLoadGame, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+						.addGap(131))
+						.addGroup(gl_painelPai.createSequentialGroup()
+								.addGap(162)
+								.addComponent(configurations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGap(171))
+								.addGroup(gl_painelPai.createSequentialGroup()
+										.addGap(90)
+										.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+										.addGap(104))
+										.addGroup(gl_painelPai.createSequentialGroup()
+												.addGap(171)
+												.addComponent(continuar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+												.addGap(184))
+				);
+		gl_painelPai.setVerticalGroup(
+				gl_painelPai.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_painelPai.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(newGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(continuar, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+						.addGap(29)
+						.addGroup(gl_painelPai.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnLoadGame))
+								.addGap(27)
+								.addComponent(configurations, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+								.addGap(59))
+				);
+		painelPai.setLayout(gl_painelPai);
+
+
+
+
+
 		JPanel painelMenuClose = new JPanel();
+		painelMenuClose.setFocusable(false);
 		painelMenuClose.setBackground(Color.DARK_GRAY);
 		frame.getContentPane().add(painelMenuClose, BorderLayout.NORTH);
-		
-		JButton close = new JButton("Close");
+
+		JButton close = new JButton("Fechar");
+		close.setFocusable(false);
 		close.setForeground(Color.BLACK);
 		close.setBackground(UIManager.getColor("Button.background"));
 		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
-				
+
 			}
 		});
-		
+
 		JButton menu = new JButton("Menu");
+		menu.setFocusable(false);
 		menu.setBackground(UIManager.getColor("Button.background"));
 		menu.setForeground(Color.BLACK);
 		menu.addActionListener(new ActionListener() {
@@ -214,17 +301,17 @@ public class jogo {
 				painelAvo.revalidate();
 				painelBisavo.repaint();
 				painelBisavo.revalidate();
-				
+
 			}
 		});
 		painelMenuClose.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		painelMenuClose.add(menu);
 		painelMenuClose.add(close);
-		
-		
-		
-	
-		
-		
+
+
+
+
+
+
 	}
 }

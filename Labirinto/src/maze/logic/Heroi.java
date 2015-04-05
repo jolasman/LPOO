@@ -1,8 +1,9 @@
 package maze.logic;
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Heroi {
+public class Heroi implements Serializable{
 
 	private int X;
 	private int Y;

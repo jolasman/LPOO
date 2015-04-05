@@ -1,6 +1,8 @@
 package maze.logic;
 
-public class MazeBuilder {
+import java.io.Serializable;
+
+public class MazeBuilder implements Serializable {
 
 	private int opcao;
 	private int size=10;

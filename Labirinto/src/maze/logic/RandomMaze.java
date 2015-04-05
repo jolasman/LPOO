@@ -1,10 +1,11 @@
 package maze.logic;
+import java.io.Serializable;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.Stack;
 
 
-public class RandomMaze extends Maze{
+public class RandomMaze extends Maze implements Serializable{
 
 	private static final char ESPACO = ' ';
 	private static final char PONTO = '.';

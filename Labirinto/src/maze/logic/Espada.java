@@ -1,8 +1,9 @@
 package maze.logic;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Espada {
+public class Espada implements Serializable{
 
 	private int espadaY;
 	private int espadaX;
