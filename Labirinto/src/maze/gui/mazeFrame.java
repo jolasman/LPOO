@@ -25,8 +25,7 @@ public class mazeFrame extends JFrame{
 				firstPanel= new JButton("Novo Jogo");
 			 	secondPanel = new mazePanel();
 			
-			 
-			 
+			 			 
 	        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	        setSize(500, 500);
 	        setLayout(cl);
