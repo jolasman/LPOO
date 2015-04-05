@@ -44,6 +44,7 @@ import java.awt.Color;
 import java.awt.SystemColor;
 import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.SwingConstants;
+import javax.swing.JInternalFrame;
 
 public class jogo {
 
@@ -100,16 +101,20 @@ public class jogo {
 		panel_5.setForeground(Color.BLACK);
 		panel_2.add(panel_5, "name_7681047023173");
 	
-		painelJogo = new mazePanel();
+		painelJogo = new JPanel();
 		panel_2.add(painelJogo, "name_7868442625847");
 		painelJogo.setFocusable(true);
+		
+		
+		
+		JPanel panel_1 = new JPanel();
 		
 		
 		JButton btnNewButton = new JButton("Novo Jogo");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					painelJogo = new mazePanel();
+					painelJogo= new mazePanel();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -124,11 +129,8 @@ public class jogo {
 				
 			}
 		});
+		panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		panel_5.add(btnNewButton);
-		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(Color.BLACK);
-		panel_2.add(panel_1, "name_7667436044093");
 		
 		JButton btnNewButton_1 = new JButton("Configurações");
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -139,7 +141,24 @@ public class jogo {
 				panel_2.revalidate();
 			}
 		});
+		
+		JButton btnNewButton_3 = new JButton("Continuar");
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				panel_2.removeAll();
+				panel_2.add(painelJogo);
+				panel_2.repaint();
+				painelJogo.requestFocus();
+				panel_2.revalidate();
+				
+			}
+		});
+		panel_5.add(btnNewButton_3);
 		panel_5.add(btnNewButton_1);
+		
+		
+		panel_1.setBackground(Color.BLACK);
+		panel_2.add(panel_1, "name_7667436044093");
 		JButton btnNewButton_2 = new JButton("Voltar");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
