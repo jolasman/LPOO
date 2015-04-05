@@ -11,8 +11,11 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
@@ -304,9 +307,26 @@ public class Dialog extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
+						try {
+							numDragoes= Integer.parseInt(numeroDrag.getText());
+							
+						}
+						catch (NumberFormatException ex){
+						 JOptionPane.showMessageDialog(null,"Carater em Nº dragões incorreto.\nValor 1 será usado.","Aviso",JOptionPane.WARNING_MESSAGE);	
+							numDragoes=1;
+						}
 						
-						numDragoes= Integer.parseInt(numeroDrag.getText());
-						tamanho= Integer.parseInt(tamanhoLab.getText());
+						try {
+							tamanho= Integer.parseInt(tamanhoLab.getText());
+							
+						}
+						catch (NumberFormatException ex){
+							 JOptionPane.showMessageDialog(null,"Carater em tamanho do labirinto incorreto.\nValor 10 será usado.","Aviso",JOptionPane.WARNING_MESSAGE);	
+							
+							tamanho=10;
+						}
+					
+						
 						
 						if(tglbtnAleatrio.isSelected())
 							modo=0;
@@ -342,4 +362,6 @@ public class Dialog extends JDialog {
 			}
 		}
 	}
+	
+	
 }
