@@ -57,7 +57,7 @@ public class mazePanel extends JPanel implements KeyListener {
 
 
 
-	public mazePanel() throws IOException {
+	public mazePanel(int modo,int numDragoes,int tamanho, int cospe,int anda,int dorme ) throws IOException {
 		this.addKeyListener(this);
 
 		wall=ImageIO.read(new File("brick.jpg"));
@@ -94,12 +94,11 @@ public class mazePanel extends JPanel implements KeyListener {
 		
 		
 
-		int modo=0;
 		MazeBuilder gerador= new MazeBuilder();
-		gerador.setSize(12);
+		gerador.setSize(tamanho);
 		gerador.setMazeType(modo);
 		Maze maze = gerador.getMaze();
-		jogo= new Jogo(maze.getDados(),maze.getTamanho(),1,1,1,1,modo);
+		jogo= new Jogo(maze.getDados(),maze.getTamanho(),numDragoes,cospe,dorme,anda,modo);
 
 
 	}

@@ -16,10 +16,60 @@ import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
 import javax.swing.SwingConstants;
+import javax.swing.JSlider;
+import javax.swing.JList;
+import javax.swing.AbstractListModel;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerListModel;
 
 public class Dialog extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
+	private int numDragoes=1;
+	private int tamanho=10;
+	private int modo=1; // 0 para aleatorio, 1 para estatico
+	private int anda=2;
+	private int cospe=2;
+	private int dorme=2;
+	
+	JToggleButton tglbtnAleatrio = new JToggleButton("Aleat\u00F3rio");
+	JToggleButton tglbtnEsttico = new JToggleButton("Est\u00E1tico");
+	JToggleButton andaSim = new JToggleButton("Sim");
+	JToggleButton andaNao = new JToggleButton("Nao");
+	JToggleButton fogoSim = new JToggleButton("Sim");
+	JToggleButton fogoNao = new JToggleButton("Nao");
+	JToggleButton dormeSim = new JToggleButton("Sim");
+	JToggleButton dormeNao = new JToggleButton("Nao");
+	JFormattedTextField numeroDrag = new JFormattedTextField();
+	JFormattedTextField tamanhoLab = new JFormattedTextField();
+	
+	public int getCospe() {
+		return cospe;
+	}
+	
+	public int getNumDragoes() {
+		
+		
+		
+		return numDragoes;
+	}
+
+	public int getTamanho() {
+		
+		return tamanho;
+	}
+
+	public int getModo() {
+		return modo;
+	}
+
+	public int getAnda() {
+		return anda;
+	}
+
+	public int getDorme() {
+		return dorme;
+	}
 
 	/**
 	 * Launch the application.
@@ -48,13 +98,29 @@ public class Dialog extends JDialog {
 		lblNmeroDeDrages.setBounds(26, 16, 81, 17);
 		contentPanel.add(lblNmeroDeDrages);
 		
-		JToggleButton tglbtnAleatrio = new JToggleButton("Aleat\u00F3rio");
 
-		JToggleButton tglbtnEsttico = new JToggleButton("Est\u00E1tico");
+		numeroDrag.setText("1");
+	
+		tamanhoLab.setText("10");
+
+		tglbtnEsttico.setSelected(true);
 		
 		tglbtnAleatrio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tglbtnEsttico.setSelected(false);
+				
+				if(!tglbtnEsttico.isSelected())
+					tglbtnAleatrio.setSelected(true);
+				
+				andaSim.setEnabled(true);
+				andaNao.setEnabled(true);
+				fogoSim.setEnabled(true);
+				fogoNao.setEnabled(true);
+				dormeSim.setEnabled(true);
+				dormeNao.setEnabled(true);
+				numeroDrag.setEnabled(true);
+				tamanhoLab.setEnabled(true);
+				
 			}
 		});
 		tglbtnAleatrio.setBounds(117, 13, 121, 23);
@@ -64,6 +130,23 @@ public class Dialog extends JDialog {
 			public void actionPerformed(ActionEvent e) {
 				
 				tglbtnAleatrio.setSelected(false);
+				
+				
+				if(!tglbtnAleatrio.isSelected())
+					tglbtnEsttico.setSelected(true);
+				
+				andaSim.setEnabled(true);
+				andaNao.setEnabled(true);
+				fogoSim.setEnabled(false);
+				fogoSim.setSelected(false);
+				fogoNao.setSelected(true);
+				fogoNao.setEnabled(false);
+				dormeSim.setEnabled(true);
+				dormeNao.setEnabled(true);
+				numeroDrag.setEnabled(false);
+				tamanhoLab.setEnabled(false);
+				tamanhoLab.setText("10");
+				numeroDrag.setText("1");
 			}
 		});
 		tglbtnEsttico.setBounds(248, 13, 121, 23);
@@ -73,54 +156,121 @@ public class Dialog extends JDialog {
 		lblNDrages.setBounds(26, 84, 135, 14);
 		contentPanel.add(lblNDrages);
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(194, 82, 44, 17);
-		contentPanel.add(formattedTextField);
+	
+		numeroDrag.setEnabled(false);
+		numeroDrag.setBounds(194, 82, 44, 17);
+		contentPanel.add(numeroDrag);
 		
 		JLabel lblTamanhoDoLabirinto = new JLabel("Tamanho do labirinto:");
 		lblTamanhoDoLabirinto.setBounds(26, 59, 135, 14);
 		contentPanel.add(lblTamanhoDoLabirinto);
 		
-		JFormattedTextField formattedTextField_1 = new JFormattedTextField();
-		formattedTextField_1.setEnabled(false);
-		formattedTextField_1.setBounds(194, 57, 44, 17);
-		contentPanel.add(formattedTextField_1);
+		
+		tamanhoLab.setEnabled(false);
+		tamanhoLab.setBounds(194, 57, 44, 17);
+		contentPanel.add(tamanhoLab);
 		
 		JLabel lblDragoAnda = new JLabel("Drag\u00E3o anda:");
 		lblDragoAnda.setBounds(26, 109, 81, 14);
 		contentPanel.add(lblDragoAnda);
 		
-		JToggleButton tglbtnNewToggleButton = new JToggleButton("Sim");
-		tglbtnNewToggleButton.setBounds(172, 110, 66, 17);
-		contentPanel.add(tglbtnNewToggleButton);
+		andaSim.setEnabled(false);
+		andaNao.setSelected(true);
+		andaNao.setEnabled(false);
 		
-		JToggleButton tglbtnNo = new JToggleButton("Nao");
-		tglbtnNo.setBounds(248, 110, 66, 17);
-		contentPanel.add(tglbtnNo);
+		andaSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				
+				andaNao.setSelected(false);
+				if(!andaNao.isSelected())
+					andaSim.setSelected(true);
+				
+				
+			}
+		});
+		
+		andaNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				andaSim.setSelected(false);
+				if(!andaSim.isSelected())
+					andaNao.setSelected(true);
+				
+				
+			}
+		});
+		andaSim.setBounds(172, 110, 66, 17);
+		contentPanel.add(andaSim);
+	
+		andaNao.setBounds(248, 110, 66, 17);
+		contentPanel.add(andaNao);
 		
 		JLabel lblDragoDeitaFogo = new JLabel("Drag\u00E3o deita fogo:");
 		lblDragoDeitaFogo.setBounds(26, 139, 121, 14);
 		contentPanel.add(lblDragoDeitaFogo);
 		
-		JToggleButton toggleButton = new JToggleButton("Sim");
-		toggleButton.setBounds(172, 138, 66, 17);
-		contentPanel.add(toggleButton);
+		fogoNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				fogoSim.setSelected(false);
+
+				if(!fogoSim.isSelected())
+					fogoNao.setSelected(true);
+				
+			}
+		});
+		fogoNao.setSelected(true);
 		
-		JToggleButton toggleButton_1 = new JToggleButton("Nao");
-		toggleButton_1.setBounds(248, 138, 66, 17);
-		contentPanel.add(toggleButton_1);
+		
+		fogoSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				fogoNao.setSelected(false);
+				
+				if(!fogoNao.isSelected())
+					fogoSim.setSelected(true);
+				
+			}
+		});
+		fogoSim.setEnabled(false);
+		fogoSim.setBounds(172, 138, 66, 17);
+		contentPanel.add(fogoSim);
+		
+	
+		fogoNao.setEnabled(false);
+		fogoNao.setBounds(248, 138, 66, 17);
+		contentPanel.add(fogoNao);
 		
 		JLabel lblDragoDorme = new JLabel("Drag\u00E3o dorme:");
 		lblDragoDorme.setBounds(26, 164, 121, 14);
 		contentPanel.add(lblDragoDorme);
 		
-		JToggleButton toggleButton_2 = new JToggleButton("Sim");
-		toggleButton_2.setBounds(172, 166, 66, 17);
-		contentPanel.add(toggleButton_2);
+
+		dormeNao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dormeSim.setSelected(false);
+				
+				if(!dormeSim.isSelected())
+					dormeNao.setSelected(true);
+				
+			}
+		});
 		
-		JToggleButton toggleButton_3 = new JToggleButton("Nao");
-		toggleButton_3.setBounds(248, 166, 66, 17);
-		contentPanel.add(toggleButton_3);
+		dormeSim.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dormeNao.setSelected(false);
+				if(!dormeNao.isSelected())
+					dormeSim.setSelected(true);
+			}
+		});
+		dormeSim.setEnabled(false);
+		dormeSim.setBounds(172, 166, 66, 17);
+		contentPanel.add(dormeSim);
+		
+	
+		dormeNao.setSelected(true);
+		dormeNao.setEnabled(false);
+		dormeNao.setBounds(248, 166, 66, 17);
+		contentPanel.add(dormeNao);
 		
 		JLabel lblComandos = new JLabel("Comandos:");
 		lblComandos.setBounds(26, 243, 81, 17);
@@ -153,7 +303,37 @@ public class Dialog extends JDialog {
 				JButton okButton = new JButton("OK");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						dispose();
+						
+						
+						numDragoes= Integer.parseInt(numeroDrag.getText());
+						tamanho= Integer.parseInt(tamanhoLab.getText());
+						
+						if(tglbtnAleatrio.isSelected())
+							modo=0;
+						else if(tglbtnEsttico.isSelected())
+							modo=1;
+						
+						if(andaSim.isSelected())
+							anda=1;
+						else if(andaNao.isSelected())
+							anda=2;
+						
+						if(dormeSim.isSelected())
+							dorme=1;
+						else if(dormeNao.isSelected())
+							dorme=2;
+						
+						if(fogoSim.isSelected())
+							cospe=1;
+						else if(fogoNao.isSelected())
+							cospe=2;
+						
+						
+						setVisible(false);
+						
+						
+						
+						
 					}
 				});
 				okButton.setActionCommand("OK");

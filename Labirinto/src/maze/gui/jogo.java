@@ -59,7 +59,7 @@ public class jogo {
 
 	private JFrame frame;
 	private JPanel painelJogo;
-	JDialog dialog = new Dialog();
+	Dialog dialog = new Dialog();
 
 	/**
 	 * Launch the application.
@@ -117,13 +117,13 @@ public class jogo {
 		
 		
 		JPanel painelConfig = new JPanel();
-		
-		
+	
 		JButton newGame = new JButton("Novo Jogo");
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					painelJogo= new mazePanel();
+					painelJogo= new mazePanel(dialog.getModo(),dialog.getNumDragoes(),dialog.getTamanho(),dialog.getCospe(),
+							dialog.getAnda(),dialog.getDorme());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
