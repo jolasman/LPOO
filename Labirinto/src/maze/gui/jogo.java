@@ -8,58 +8,24 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
-import java.awt.LayoutManager;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.swing.BoxLayout;
-
-import java.awt.GridLayout;
-
 import maze.logic.Jogo;
-import maze.logic.Maze;
-import maze.logic.MazeBuilder;
-import net.miginfocom.swing.MigLayout;
-
-import java.awt.Component;
-
 import javax.swing.LayoutStyle.ComponentPlacement;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-
-import javax.swing.JSplitPane;
-
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-
-import javax.swing.JLayeredPane;
-
 import java.awt.Color;
-import java.awt.SystemColor;
-
-import com.jgoodies.forms.factories.FormFactory;
-
-import javax.swing.SwingConstants;
-import javax.swing.JInternalFrame;
-import javax.swing.SpringLayout;
 import javax.swing.UIManager;
 
 public class jogo {
@@ -122,6 +88,7 @@ public class jogo {
 		painelAvo.add(painelPai, "name_7681047023173");
 
 		painelJogo = new mazePanel();
+		painelJogo.setBackground(Color.BLACK);
 		painelAvo.add(painelJogo, "name_7868442625847");
 		painelJogo.setFocusable(true);
 
@@ -168,12 +135,13 @@ public class jogo {
 					(painelJogo).setJogo((Jogo)obj);
 					ois.close();
 
-
+					JOptionPane.showMessageDialog(null,"\tJogo carregado com sucesso\n","Load Game",JOptionPane.CLOSED_OPTION);
 					painelAvo.removeAll();
-					painelJogo.requestFocus();
 					painelAvo.add(painelJogo);
+					painelJogo.requestFocus();
 					painelAvo.repaint();
 					painelAvo.revalidate();
+					
 					jogoIniciado=true;
 					
 
@@ -188,18 +156,23 @@ public class jogo {
 		btnSaveGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-
-				FileOutputStream fos = null;
-				ObjectOutputStream oos = null;
-				try {
-					Jogo jogo = ( painelJogo).getJogo();
-					fos = new FileOutputStream("ficheiro.dat");
-					oos = new ObjectOutputStream(fos);
-					oos.writeObject(jogo);
-					fos.close();
-				} catch (Exception e1) {
-					JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para gravar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+				if(jogoIniciado){
+					FileOutputStream fos = null;
+					ObjectOutputStream oos = null;
+					try {
+						Jogo jogo = ( painelJogo).getJogo();
+						fos = new FileOutputStream("ficheiro.dat");
+						oos = new ObjectOutputStream(fos);
+						oos.writeObject(jogo);
+						fos.close();
+						JOptionPane.showMessageDialog(null,"\tJogo gravado com sucesso\n","Save Game",JOptionPane.CLOSED_OPTION);
+					}
+					catch (Exception e1) {
+						JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para gravar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+					}
 				}
+				else
+					JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para gravar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
 
 
 			}
@@ -215,12 +188,12 @@ public class jogo {
 
 					jogoIniciado=true;
 					painelAvo.removeAll();
-					painelJogo.requestFocus();
 					painelAvo.add(painelJogo);
+					painelJogo.requestFocus();
 					painelAvo.repaint();
 					painelAvo.revalidate();
 
-				} catch (IOException e1) {
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
