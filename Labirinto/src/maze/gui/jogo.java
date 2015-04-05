@@ -14,6 +14,8 @@ import java.io.IOException;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
@@ -40,11 +42,16 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 
 import javax.swing.JLayeredPane;
+
 import java.awt.Color;
 import java.awt.SystemColor;
+
 import com.jgoodies.forms.factories.FormFactory;
+
 import javax.swing.SwingConstants;
 import javax.swing.JInternalFrame;
+import javax.swing.SpringLayout;
+import javax.swing.UIManager;
 
 public class jogo {
 
@@ -52,6 +59,7 @@ public class jogo {
 
 	private JFrame frame;
 	private JPanel painelJogo;
+	JDialog dialog = new Dialog();
 
 	/**
 	 * Launch the application.
@@ -84,34 +92,35 @@ public class jogo {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JPanel parentPanel = new JPanel();
-		parentPanel.setBackground(Color.MAGENTA);
-		frame.getContentPane().add(parentPanel, BorderLayout.CENTER);
-		parentPanel.setLayout(new CardLayout(0, 0));
+		JPanel painelBisavo = new JPanel();
+		painelBisavo.setBackground(Color.MAGENTA);
+		frame.getContentPane().add(painelBisavo, BorderLayout.CENTER);
+		painelBisavo.setLayout(new CardLayout(0, 0));
 		
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setBackground(Color.GRAY);
-		parentPanel.add(panel_2, "name_5355690780279");
-		panel_2.setLayout(new CardLayout(0, 0));
-		panel_2.setFocusable(true);
+		JPanel painelAvo = new JPanel();
+		painelAvo.setBackground(Color.GRAY);
+		painelBisavo.add(painelAvo, "name_5355690780279");
+		painelAvo.setLayout(new CardLayout(0, 0));
+		painelAvo.setFocusable(true);
 		
-		JPanel panel_5 = new JPanel();
-		panel_5.setBackground(Color.BLACK);
-		panel_5.setForeground(Color.BLACK);
-		panel_2.add(panel_5, "name_7681047023173");
+		JPanel painelPai = new JPanel();
+		painelPai.setBackground(Color.LIGHT_GRAY);
+		painelPai.setForeground(Color.BLACK);
+		painelAvo.add(painelPai, "name_7681047023173");
 	
 		painelJogo = new JPanel();
-		panel_2.add(painelJogo, "name_7868442625847");
+		painelJogo.setBackground(Color.BLACK);
+		painelAvo.add(painelJogo, "name_7868442625847");
 		painelJogo.setFocusable(true);
 		
 		
 		
-		JPanel panel_1 = new JPanel();
+		JPanel painelConfig = new JPanel();
 		
 		
-		JButton btnNewButton = new JButton("Novo Jogo");
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton newGame = new JButton("Novo Jogo");
+		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					painelJogo= new mazePanel();
@@ -121,92 +130,96 @@ public class jogo {
 				}
 				
 				
-				panel_2.removeAll();
-				panel_2.add(painelJogo);
-				panel_2.repaint();
+				painelAvo.removeAll();
+				painelAvo.add(painelJogo);
+				painelAvo.repaint();
 				painelJogo.requestFocus();
-				panel_2.revalidate();
+				painelAvo.revalidate();
 				
 			}
 		});
-		panel_5.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panel_5.add(btnNewButton);
+		painelPai.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		painelPai.add(newGame);
 		
-		JButton btnNewButton_1 = new JButton("Configurações");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		JButton configurations = new JButton("Configurações");
+		configurations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel_2.removeAll();
-				panel_2.add(panel_1);
-				panel_2.repaint();
-				panel_2.revalidate();
+				painelAvo.removeAll();
+				painelAvo.add(painelConfig);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+				dialog.setVisible(true);
 			}
 		});
 		
-		JButton btnNewButton_3 = new JButton("Continuar");
-		btnNewButton_3.addActionListener(new ActionListener() {
+		JButton continuar = new JButton("Continuar");
+		continuar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				panel_2.removeAll();
-				panel_2.add(painelJogo);
-				panel_2.repaint();
+				painelAvo.removeAll();
+				painelAvo.add(painelJogo);
+				painelAvo.repaint();
 				painelJogo.requestFocus();
-				panel_2.revalidate();
+				painelAvo.revalidate();
 				
 			}
 		});
-		panel_5.add(btnNewButton_3);
-		panel_5.add(btnNewButton_1);
+		painelPai.add(continuar);
+		painelPai.add(configurations);
 		
 		
-		panel_1.setBackground(Color.BLACK);
-		panel_2.add(panel_1, "name_7667436044093");
+		painelConfig.setBackground(Color.LIGHT_GRAY);
+		painelAvo.add(painelConfig, "name_7667436044093");
 		JButton btnNewButton_2 = new JButton("Voltar");
+		btnNewButton_2.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				panel_2.removeAll();
-				panel_2.add(panel_5);
-				panel_2.repaint();
-				panel_2.revalidate();
-				
+				painelAvo.removeAll();
+				painelAvo.add(painelPai);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+
 			}
 		});
-		panel_1.add(btnNewButton_2);
+		painelConfig.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		painelConfig.add(btnNewButton_2);
 		
 		
 	
 		
 		
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
+		JPanel painelMenuClose = new JPanel();
+		painelMenuClose.setBackground(Color.DARK_GRAY);
+		frame.getContentPane().add(painelMenuClose, BorderLayout.NORTH);
 		
-		JButton button_1 = new JButton("Close");
-		button_1.setBackground(Color.RED);
-		button_1.addActionListener(new ActionListener() {
+		JButton close = new JButton("Close");
+		close.setForeground(Color.BLACK);
+		close.setBackground(UIManager.getColor("Button.background"));
+		close.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 				
 			}
 		});
 		
-		JButton button = new JButton("Menu");
-		button.setBackground(Color.RED);
-		button.setForeground(Color.BLACK);
-		button.addActionListener(new ActionListener() {
+		JButton menu = new JButton("Menu");
+		menu.setBackground(UIManager.getColor("Button.background"));
+		menu.setForeground(Color.BLACK);
+		menu.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				parentPanel.removeAll();
-				parentPanel.add(panel_2);
-				panel_2.removeAll();
-				panel_2.add(panel_5);
-				panel_2.repaint();
-				panel_2.revalidate();
-				parentPanel.repaint();
-				parentPanel.revalidate();
+				painelBisavo.removeAll();
+				painelBisavo.add(painelAvo);
+				painelAvo.removeAll();
+				painelAvo.add(painelPai);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+				painelBisavo.repaint();
+				painelBisavo.revalidate();
 				
 			}
 		});
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		panel.add(button);
-		panel.add(button_1);
+		painelMenuClose.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+		painelMenuClose.add(menu);
+		painelMenuClose.add(close);
 		
 		
 		
