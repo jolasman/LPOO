@@ -141,7 +141,6 @@ public class jogo {
 		});
 		panel_5.add(btnNewButton_1);
 		JButton btnNewButton_2 = new JButton("Voltar");
-		btnNewButton_2.setForeground(Color.BLACK);
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				panel_2.removeAll();
@@ -162,7 +161,6 @@ public class jogo {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		
 		JButton button_1 = new JButton("Close");
-		button_1.setForeground(Color.BLACK);
 		button_1.setBackground(Color.RED);
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
