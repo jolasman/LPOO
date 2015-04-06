@@ -33,7 +33,7 @@ public class jogo {
 	JTextField textField = new JTextField(25);
 
 	private JFrame frame;
-	private mazePanel painelJogo;
+	private mazePanel painelJogo =new mazePanel();;
 	Dialog dialog = new Dialog();
 	private boolean jogoIniciado=false;
 
@@ -87,10 +87,8 @@ public class jogo {
 		painelPai.setForeground(Color.BLACK);
 		painelAvo.add(painelPai, "name_7681047023173");
 
-		painelJogo = new mazePanel();
-		painelJogo.setBackground(Color.BLACK);
-		painelAvo.add(painelJogo, "name_7868442625847");
-		painelJogo.setFocusable(true);
+	
+
 
 		JButton continuar = new JButton("Continuar");
 		continuar.setFocusable(false);
@@ -124,28 +122,21 @@ public class jogo {
 		btnLoadGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-
-				FileInputStream fis = null;
-				ObjectInputStream ois = null;
 				try {
-					fis = new FileInputStream("ficheiro.dat");
-					ois = new ObjectInputStream(fis);
+					FileInputStream  fis = new FileInputStream("ficheiro.dat");
+					ObjectInputStream ois = new ObjectInputStream(fis);
 					Object obj = ois.readObject();
-
-					(painelJogo).setJogo((Jogo)obj);
 					ois.close();
-
-					JOptionPane.showMessageDialog(null,"\tJogo carregado com sucesso\n","Load Game",JOptionPane.CLOSED_OPTION);
+					painelJogo.newGame(((Jogo)obj));
+					JOptionPane.showMessageDialog(null,"Jogo carregado com sucesso.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+					jogoIniciado=true;
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
 					painelJogo.requestFocus();
 					painelAvo.repaint();
 					painelAvo.revalidate();
-					
-					jogoIniciado=true;
-					
 
-				} catch (Exception e) {
+				} catch (Exception e1) {
 					JOptionPane.showMessageDialog(null,"Não existe nenhum jogo para carregar.\n","Aviso",JOptionPane.WARNING_MESSAGE);
 				}
 			}
@@ -183,7 +174,7 @@ public class jogo {
 		newGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					painelJogo= new mazePanel(dialog.getModo(),dialog.getNumDragoes(),dialog.getTamanho(),dialog.getCospe(),
+					painelJogo.newGame(dialog.getModo(),dialog.getNumDragoes(),dialog.getTamanho(),dialog.getCospe(),
 							dialog.getAnda(),dialog.getDorme());
 
 					jogoIniciado=true;
@@ -203,41 +194,41 @@ public class jogo {
 		});
 		GroupLayout gl_painelPai = new GroupLayout(painelPai);
 		gl_painelPai.setHorizontalGroup(
-				gl_painelPai.createParallelGroup(Alignment.TRAILING)
+			gl_painelPai.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_painelPai.createSequentialGroup()
-						.addGap(113)
-						.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(18)
-						.addComponent(btnLoadGame, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-						.addGap(131))
-						.addGroup(gl_painelPai.createSequentialGroup()
-								.addGap(162)
-								.addComponent(configurations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGap(171))
-								.addGroup(gl_painelPai.createSequentialGroup()
-										.addGap(90)
-										.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-										.addGap(104))
-										.addGroup(gl_painelPai.createSequentialGroup()
-												.addGap(171)
-												.addComponent(continuar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-												.addGap(184))
-				);
+					.addGap(113)
+					.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(18)
+					.addComponent(btnLoadGame, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
+					.addGap(131))
+				.addGroup(gl_painelPai.createSequentialGroup()
+					.addGap(162)
+					.addComponent(configurations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(171))
+				.addGroup(gl_painelPai.createSequentialGroup()
+					.addGap(90)
+					.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+					.addGap(104))
+				.addGroup(gl_painelPai.createSequentialGroup()
+					.addGap(171)
+					.addComponent(continuar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addGap(184))
+		);
 		gl_painelPai.setVerticalGroup(
-				gl_painelPai.createParallelGroup(Alignment.LEADING)
+			gl_painelPai.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_painelPai.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(newGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(continuar, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-						.addGap(29)
-						.addGroup(gl_painelPai.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(btnLoadGame))
-								.addGap(27)
-								.addComponent(configurations, GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
-								.addGap(59))
-				);
+					.addContainerGap()
+					.addComponent(newGame)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(continuar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addGap(29)
+					.addGroup(gl_painelPai.createParallelGroup(Alignment.BASELINE, false)
+						.addComponent(btnSaveGame)
+						.addComponent(btnLoadGame))
+					.addGap(27)
+					.addComponent(configurations, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(59, Short.MAX_VALUE))
+		);
 		painelPai.setLayout(gl_painelPai);
 
 

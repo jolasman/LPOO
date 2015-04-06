@@ -222,6 +222,11 @@ public class Dragao implements Serializable {
 		if(morreu || adormecido )
 			return 0;
 
+		if(labirinto[heroiY][heroiX]=='X'){
+			return 0;
+		}
+		
+		
 		if(cospe==1){
 			if(heroiX==dragaoX)
 			{ 

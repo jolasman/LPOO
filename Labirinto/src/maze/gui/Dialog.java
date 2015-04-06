@@ -177,9 +177,9 @@ public class Dialog extends JDialog {
 		lblDragoAnda.setBounds(26, 109, 81, 14);
 		contentPanel.add(lblDragoAnda);
 		
-		andaSim.setEnabled(false);
+		andaSim.setEnabled(true);
 		andaNao.setSelected(true);
-		andaNao.setEnabled(false);
+		andaNao.setEnabled(true);
 		
 		andaSim.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -265,13 +265,13 @@ public class Dialog extends JDialog {
 					dormeSim.setSelected(true);
 			}
 		});
-		dormeSim.setEnabled(false);
+		dormeSim.setEnabled(true);
 		dormeSim.setBounds(172, 166, 66, 17);
 		contentPanel.add(dormeSim);
 		
 	
 		dormeNao.setSelected(true);
-		dormeNao.setEnabled(false);
+		dormeNao.setEnabled(true);
 		dormeNao.setBounds(248, 166, 66, 17);
 		contentPanel.add(dormeNao);
 		

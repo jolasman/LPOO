@@ -414,9 +414,8 @@ public class Jogo implements Serializable{
 		
 		
 		
-		if(verificaDragoes(X,Y)  || verificaDragoes(0,0) )
+		if(verificaDragoes(X,Y) )
 		{ 
-
 			if(heroi.isMorto())
 				return 1;
 			andaUm(direcao);

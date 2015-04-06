@@ -18,14 +18,6 @@ import maze.logic.MazeBuilder;
 public class mazePanel extends JPanel implements KeyListener {
 
 	private Jogo jogo;
-	public  Jogo getJogo() {
-		return jogo;
-	}
-
-
-	public  void setJogo(Jogo jogo) {
-		this.jogo = jogo;
-	}
 
 	BufferedImage wall; //done
 	BufferedImage hero; //done
@@ -63,10 +55,8 @@ public class mazePanel extends JPanel implements KeyListener {
 
 	private int X, Y;
 	private boolean acabou=false;
-
-	public mazePanel() throws IOException{
-		this.addKeyListener(this);
-		
+	
+	public void initializeImages() throws IOException{
 		wall=ImageIO.read(new File("brick.jpg"));
 		grass=ImageIO.read(new File("grass1p.png"));
 		saidaImpossivel=ImageIO.read(new File("saidaImpossivel.jpg"));
@@ -96,46 +86,18 @@ public class mazePanel extends JPanel implements KeyListener {
 		dragonDormirEspada=ImageIO.read(new File("dragao_dormir_espada.jpg"));
 		dragonDormirEscudo=ImageIO.read(new File("dragao_dormir_escudo.jpg"));
 		dragonDormirDardo=ImageIO.read(new File("dragao_dormir_dardo.jpg"));
-		
 	}
 
-	public mazePanel(int modo,int numDragoes,int tamanho, int cospe,int anda,int dorme ) throws IOException {
+	public void newGame(Jogo jogo) throws IOException{
+		this.jogo=jogo;
+	}
+	public mazePanel() throws IOException {
 		this.addKeyListener(this);
+		initializeImages();
+	}
 
-		wall=ImageIO.read(new File("brick.jpg"));
-		grass=ImageIO.read(new File("grass1p.png"));
-		saidaImpossivel=ImageIO.read(new File("saidaImpossivel.jpg"));
-		saidaPossivel=ImageIO.read(new File("saidaPossivel.jpg"));
-		win =ImageIO.read(new File("win.jpg"));
-
-		sword =ImageIO.read(new File("espada2.jpg"));
-		dardo =ImageIO.read(new File("dardo.jpg"));
-		shield=ImageIO.read(new File("escudo.jpg"));
-
-		hero=ImageIO.read(new File("Heroi.jpg"));
-		heroiEscudado=ImageIO.read(new File("Heroi_escudado.jpg")); 
-		heroiArmado=ImageIO.read(new File("Heroi_espada.jpg")); 
-		heroiDardo=ImageIO.read(new File("Heroi_so_dardo.jpg")); 
-		heroiAmbos=ImageIO.read(new File("hero_Armado_escudado.jpg")); 
-		heroiEspadaDardo= ImageIO.read(new File("Heroi_dardo.jpg")); 
-		heroiAmbosDardo=ImageIO.read(new File("hero_Armado_escudado_dart.jpg")); 
-		heroiEscudoDardo=ImageIO.read(new File("Heroi_escudado_dardos.jpg")); 
-		heroMorto=ImageIO.read(new File("morto.png")); 
-
-
-		dragon =ImageIO.read(new File("Dragao_normal.jpg"));
-		dragonSleep =ImageIO.read(new File("dragao_dormir.jpg"));
-		dragonEspada=ImageIO.read(new File("Dragao_espada.jpg"));
-		dragonEscudo=ImageIO.read(new File("dragao_escudo.jpg"));
-		dragonDardo=ImageIO.read(new File("Dragao_dardo.jpg"));
-		dragonDormirEspada=ImageIO.read(new File("dragao_dormir_espada.jpg"));
-		dragonDormirEscudo=ImageIO.read(new File("dragao_dormir_escudo.jpg"));
-		dragonDormirDardo=ImageIO.read(new File("dragao_dormir_dardo.jpg"));
+	public void newGame(int modo,int numDragoes,int tamanho, int cospe,int anda,int dorme ) throws IOException {
 		
-		
-		
-		
-
 		MazeBuilder gerador= new MazeBuilder();
 		gerador.setSize(tamanho);
 		gerador.setMazeType(modo);
@@ -145,6 +107,10 @@ public class mazePanel extends JPanel implements KeyListener {
 
 	}
 	
+
+	public Jogo getJogo() {
+		return jogo;
+	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo ...	
