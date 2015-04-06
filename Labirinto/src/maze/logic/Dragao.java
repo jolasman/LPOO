@@ -106,6 +106,9 @@ public class Dragao implements Serializable {
 	public boolean morreComDardo(char[][] labirinto,int heroiY,int heroiX){
 
 
+		if(labirinto[heroiY][heroiX]=='X')
+			return false;
+		
 		if(heroiX==dragaoX)
 		{ 
 			if(heroiY<dragaoY){

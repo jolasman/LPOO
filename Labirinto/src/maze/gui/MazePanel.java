@@ -15,7 +15,7 @@ import maze.logic.Maze;
 import maze.logic.MazeBuilder;
 
 
-public class mazePanel extends JPanel implements KeyListener {
+public class MazePanel extends JPanel implements KeyListener {
 
 	private Jogo jogo;
 
@@ -91,7 +91,7 @@ public class mazePanel extends JPanel implements KeyListener {
 	public void newGame(Jogo jogo) throws IOException{
 		this.jogo=jogo;
 	}
-	public mazePanel() throws IOException {
+	public MazePanel() throws IOException {
 		this.addKeyListener(this);
 		initializeImages();
 	}

@@ -28,12 +28,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import javax.swing.UIManager;
 
-public class jogo {
+public class JogoGUI {
 
 	JTextField textField = new JTextField(25);
 
 	private JFrame frame;
-	private mazePanel painelJogo =new mazePanel();;
+	private MazePanel painelJogo =new MazePanel();;
 	Dialog dialog = new Dialog();
 	private boolean jogoIniciado=false;
 
@@ -44,7 +44,7 @@ public class jogo {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					jogo window = new jogo();
+					JogoGUI window = new JogoGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +57,7 @@ public class jogo {
 	 * Create the application.
 	 * @throws IOException 
 	 */
-	public jogo() throws IOException {
+	public JogoGUI() throws IOException {
 		initialize();
 	}
 	/**
@@ -128,7 +128,9 @@ public class jogo {
 					Object obj = ois.readObject();
 					ois.close();
 					painelJogo.newGame(((Jogo)obj));
+					
 					JOptionPane.showMessageDialog(null,"Jogo carregado com sucesso.\n","Aviso",JOptionPane.WARNING_MESSAGE);
+					
 					jogoIniciado=true;
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
