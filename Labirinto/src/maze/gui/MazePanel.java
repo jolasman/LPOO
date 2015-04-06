@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.logic.Jogo;
@@ -18,6 +19,14 @@ import maze.logic.MazeBuilder;
 public class MazePanel extends JPanel implements KeyListener {
 
 	private Jogo jogo;
+	
+	
+	
+	private int keyCima=KeyEvent.VK_UP;
+	private int keyBaixo=KeyEvent.VK_DOWN;
+	private int keyEsquerda=KeyEvent.VK_LEFT;
+	private int keyDireita=KeyEvent.VK_RIGHT;
+	
 
 	BufferedImage wall; //done
 	BufferedImage hero; //done
@@ -200,28 +209,31 @@ public class MazePanel extends JPanel implements KeyListener {
 
 	}
 
-
+	public void setKey(int cima, int esquerda, int direita, int baixo){
+		
+		keyCima=cima;
+		keyEsquerda=esquerda;
+		keyDireita=direita;
+		keyBaixo=baixo;
+		
+	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		switch(arg0.getKeyCode()){
-		case KeyEvent.VK_LEFT: 
-			jogo.joga("a"); 
-			break;
-
-		case KeyEvent.VK_RIGHT: 
-			jogo.joga("d");
-			break;
-
-		case KeyEvent.VK_UP: 
+		
+		if(arg0.getKeyCode()==keyCima){
 			jogo.joga("w"); 
-			break;
-
-		case KeyEvent.VK_DOWN: 
-			jogo.joga("s");
-			break;
 		}
-
+		else if(arg0.getKeyCode()==keyBaixo){
+			jogo.joga("s"); 
+		}
+		else if(arg0.getKeyCode()==keyDireita){
+			jogo.joga("d"); 
+		}
+		else if(arg0.getKeyCode()==keyEsquerda){
+			jogo.joga("a"); 
+		}
+		
 		repaint();
 		if(jogo.getHeroi().isMorto()||jogo.getHeroi().isFimJogo())
 				acabou=true;

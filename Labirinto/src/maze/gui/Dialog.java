@@ -24,6 +24,8 @@ import javax.swing.JList;
 import javax.swing.AbstractListModel;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerListModel;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class Dialog extends JDialog {
 
@@ -35,6 +37,44 @@ public class Dialog extends JDialog {
 	private int cospe=2;
 	private int dorme=2;
 	
+	private int keyCima =KeyEvent.VK_UP;
+	private int keyEsquerda=KeyEvent.VK_LEFT;
+	private int keyDireita=KeyEvent.VK_RIGHT;
+	private int keyBaixo=KeyEvent.VK_DOWN;
+	
+	
+	public int getKeyCima() {
+		return keyCima;
+	}
+
+	public void setKeyCima(int keyCima) {
+		this.keyCima = keyCima;
+	}
+
+	public int getKeyEsquerda() {
+		return keyEsquerda;
+	}
+
+	public void setKeyEsquerda(int keyEsquerda) {
+		this.keyEsquerda = keyEsquerda;
+	}
+
+	public int getKeyDireita() {
+		return keyDireita;
+	}
+
+	public void setKeyDireita(int keyDireita) {
+		this.keyDireita = keyDireita;
+	}
+
+	public int getKeyBaixo() {
+		return keyBaixo;
+	}
+
+	public void setKeyBaixo(int keyBaixo) {
+		this.keyBaixo = keyBaixo;
+	}
+
 	JToggleButton tglbtnAleatrio = new JToggleButton("Aleat\u00F3rio");
 	JToggleButton tglbtnEsttico = new JToggleButton("Est\u00E1tico");
 	JToggleButton andaSim = new JToggleButton("Sim");
@@ -276,28 +316,85 @@ public class Dialog extends JDialog {
 		contentPanel.add(dormeNao);
 		
 		JLabel lblComandos = new JLabel("Comandos:");
-		lblComandos.setBounds(26, 243, 81, 17);
+		lblComandos.setBounds(26, 219, 81, 17);
 		contentPanel.add(lblComandos);
 		
-		JLabel lblCima = new JLabel("Cima");
-		lblCima.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCima.setBounds(221, 213, 46, 14);
-		contentPanel.add(lblCima);
+		JLabel labelCima = new JLabel("Up");
+		JLabel lblDireita = new JLabel("Right");
+		JLabel lblEsquerda = new JLabel("Left");
+		JLabel lblBaixo = new JLabel("Down");
 		
-		JLabel lblEsquerda = new JLabel("Esquerda");
-		lblEsquerda.setHorizontalAlignment(SwingConstants.CENTER);
-		lblEsquerda.setBounds(117, 244, 66, 14);
+		
+		
+		JToggleButton btnCima = new JToggleButton("Cima");
+		btnCima.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent arg0) {
+				if(btnCima.isSelected())
+				labelCima.setText(KeyEvent.getKeyText(arg0.getKeyCode()));
+				
+				keyCima=arg0.getKeyCode();
+				btnCima.setSelected(false);
+			}
+		});
+		
+		btnCima.setBounds(117, 219, 98, 17);
+		contentPanel.add(btnCima);
+		
+		JToggleButton btnEsquerda = new JToggleButton("Esquerda");
+		btnEsquerda.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(btnEsquerda.isSelected())
+					lblEsquerda.setText(KeyEvent.getKeyText(e.getKeyCode()));
+				keyEsquerda=e.getKeyCode();
+				btnEsquerda.setSelected(false);
+				
+			}
+		});
+		btnEsquerda.setBounds(117, 239, 98, 17);
+		contentPanel.add(btnEsquerda);
+		
+		JToggleButton btnBaixo = new JToggleButton("Baixo");
+		btnBaixo.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(btnBaixo.isSelected())
+					lblBaixo.setText(KeyEvent.getKeyText(e.getKeyCode()));
+				keyBaixo=e.getKeyCode();
+				
+				btnBaixo.setSelected(false);
+			}
+		});
+		btnBaixo.setBounds(117, 276, 98, 17);
+		contentPanel.add(btnBaixo);
+		
+		JToggleButton btnDireita = new JToggleButton("Direita");
+		btnDireita.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(btnDireita.isSelected())
+					lblDireita.setText(KeyEvent.getKeyText(e.getKeyCode()));
+				keyDireita=e.getKeyCode();
+				btnDireita.setSelected(false);
+				
+			}
+		});
+		btnDireita.setBounds(117, 257, 98, 17);
+		contentPanel.add(btnDireita);
+		
+		
+		labelCima.setBounds(248, 219, 98, 15);
+		contentPanel.add(labelCima);
+		lblEsquerda.setBounds(248, 240, 98, 15);
 		contentPanel.add(lblEsquerda);
 		
-		JLabel lblBaixo = new JLabel("Baixo");
-		lblBaixo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblBaixo.setBounds(221, 272, 46, 14);
-		contentPanel.add(lblBaixo);
-		
-		JLabel lblDireita = new JLabel("Direita");
-		lblDireita.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDireita.setBounds(323, 244, 46, 14);
+		lblDireita.setBounds(248, 258, 98, 15);
 		contentPanel.add(lblDireita);
+		
+	
+		lblBaixo.setBounds(248, 277, 98, 15);
+		contentPanel.add(lblBaixo);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
@@ -362,6 +459,4 @@ public class Dialog extends JDialog {
 			}
 		}
 	}
-	
-	
 }

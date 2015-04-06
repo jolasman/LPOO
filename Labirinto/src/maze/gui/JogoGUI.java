@@ -87,8 +87,8 @@ public class JogoGUI {
 		painelPai.setForeground(Color.BLACK);
 		painelAvo.add(painelPai, "name_7681047023173");
 
-	
 
+		
 
 		JButton continuar = new JButton("Continuar");
 		continuar.setFocusable(false);
@@ -97,6 +97,9 @@ public class JogoGUI {
 
 
 				if(jogoIniciado){
+					
+					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
+					
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
 					painelAvo.repaint();
@@ -113,6 +116,7 @@ public class JogoGUI {
 		configurations.setFocusable(false);
 		configurations.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				dialog.requestFocus();
 				dialog.setVisible(true);
 			}
 		});
@@ -128,6 +132,8 @@ public class JogoGUI {
 					Object obj = ois.readObject();
 					ois.close();
 					painelJogo.newGame(((Jogo)obj));
+					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
+					
 					
 					JOptionPane.showMessageDialog(null,"Jogo carregado com sucesso.\n","Aviso",JOptionPane.WARNING_MESSAGE);
 					
@@ -179,6 +185,8 @@ public class JogoGUI {
 					painelJogo.newGame(dialog.getModo(),dialog.getNumDragoes(),dialog.getTamanho(),dialog.getCospe(),
 							dialog.getAnda(),dialog.getDorme());
 
+					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
+					
 					jogoIniciado=true;
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
