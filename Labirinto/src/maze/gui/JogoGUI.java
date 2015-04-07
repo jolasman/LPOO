@@ -27,13 +27,21 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.Color;
 import javax.swing.UIManager;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
+import net.miginfocom.swing.MigLayout;
+import javax.swing.SpringLayout;
+import javax.swing.JSplitPane;
+import javax.swing.JToggleButton;
 
 public class JogoGUI {
 
 	JTextField textField = new JTextField(25);
 
 	private JFrame frame;
-	private MazePanel painelJogo =new MazePanel();;
+	private MazePanel painelJogo =new MazePanel();
+	private JPanel painelDesenho = new Construcao();
+	JSplitPane splitPane = new JSplitPane();
 	Dialog dialog = new Dialog();
 	private boolean jogoIniciado=false;
 
@@ -88,7 +96,7 @@ public class JogoGUI {
 		painelAvo.add(painelPai, "name_7681047023173");
 
 
-		
+
 
 		JButton continuar = new JButton("Continuar");
 		continuar.setFocusable(false);
@@ -97,9 +105,9 @@ public class JogoGUI {
 
 
 				if(jogoIniciado){
-					
+
 					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
-					
+
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
 					painelAvo.repaint();
@@ -133,10 +141,10 @@ public class JogoGUI {
 					ois.close();
 					painelJogo.newGame(((Jogo)obj));
 					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
-					
-					
+
+
 					JOptionPane.showMessageDialog(null,"Jogo carregado com sucesso.\n","Aviso",JOptionPane.WARNING_MESSAGE);
-					
+
 					jogoIniciado=true;
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
@@ -186,7 +194,7 @@ public class JogoGUI {
 							dialog.getAnda(),dialog.getDorme());
 
 					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
-					
+
 					jogoIniciado=true;
 					painelAvo.removeAll();
 					painelAvo.add(painelJogo);
@@ -202,53 +210,116 @@ public class JogoGUI {
 
 			}
 		});
+		
+		JPanel painelConfirmar = new JPanel();
+
+		JPanel painelOK = new JPanel();
+
+		JButton butaoDesenhar = new JButton("Desenhar Labirinto");
+		butaoDesenhar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelOK.removeAll();
+				painelOK.add(painelConfirmar);
+				painelOK.repaint();
+				painelOK.revalidate();
+				
+				
+				painelAvo.removeAll();
+				painelAvo.add(splitPane);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+
+
+			}
+		});
+		butaoDesenhar.setFocusable(false);
 		GroupLayout gl_painelPai = new GroupLayout(painelPai);
 		gl_painelPai.setHorizontalGroup(
-			gl_painelPai.createParallelGroup(Alignment.TRAILING)
+				gl_painelPai.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_painelPai.createSequentialGroup()
-					.addGap(113)
-					.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(18)
-					.addComponent(btnLoadGame, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-					.addGap(131))
-				.addGroup(gl_painelPai.createSequentialGroup()
-					.addGap(162)
-					.addComponent(configurations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(171))
-				.addGroup(gl_painelPai.createSequentialGroup()
-					.addGap(90)
-					.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
-					.addGap(104))
-				.addGroup(gl_painelPai.createSequentialGroup()
-					.addGap(171)
-					.addComponent(continuar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(184))
-		);
+						.addGap(90)
+						.addComponent(newGame, GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+						.addGap(104))
+						.addGroup(gl_painelPai.createSequentialGroup()
+								.addGap(171)
+								.addComponent(continuar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addGap(184))
+								.addGroup(Alignment.TRAILING, gl_painelPai.createSequentialGroup()
+										.addGap(113)
+										.addGroup(gl_painelPai.createParallelGroup(Alignment.TRAILING)
+												.addComponent(butaoDesenhar, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+												.addGroup(gl_painelPai.createSequentialGroup()
+														.addComponent(btnSaveGame, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addGap(18)
+														.addComponent(btnLoadGame, GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
+														.addGap(131))
+														.addGroup(gl_painelPai.createSequentialGroup()
+																.addGap(162)
+																.addComponent(configurations, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+																.addGap(171))
+				);
 		gl_painelPai.setVerticalGroup(
-			gl_painelPai.createParallelGroup(Alignment.LEADING)
+				gl_painelPai.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_painelPai.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(newGame)
-					.addPreferredGap(ComponentPlacement.UNRELATED)
-					.addComponent(continuar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addGap(29)
-					.addGroup(gl_painelPai.createParallelGroup(Alignment.BASELINE, false)
-						.addComponent(btnSaveGame)
-						.addComponent(btnLoadGame))
-					.addGap(27)
-					.addComponent(configurations, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(59, Short.MAX_VALUE))
-		);
+						.addContainerGap()
+						.addComponent(newGame)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(continuar, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGap(29)
+						.addGroup(gl_painelPai.createParallelGroup(Alignment.BASELINE, false)
+								.addComponent(btnSaveGame)
+								.addComponent(btnLoadGame))
+								.addGap(18)
+								.addComponent(configurations, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+								.addGap(20)
+								.addComponent(butaoDesenhar)
+								.addContainerGap(25, Short.MAX_VALUE))
+				);
 		painelPai.setLayout(gl_painelPai);
+
+		painelAvo.add(splitPane, "name_5118233268258");
+
+		splitPane.setRightComponent(painelDesenho);
+
+		JPanel panel_1 = new JPanel();
+		splitPane.setLeftComponent(panel_1);
+		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
+
+		JToggleButton btnHeroi = new JToggleButton("Heroi");
+		panel_1.add(btnHeroi);
+
+		JToggleButton btnDragao = new JToggleButton("Dragao");
+		panel_1.add(btnDragao);
+
+		JToggleButton btnParede = new JToggleButton("Parede");
+		panel_1.add(btnParede);
+
+		JToggleButton btnChao = new JToggleButton("Chao/erva");
+		panel_1.add(btnChao);
+
+		JToggleButton btnEspada = new JToggleButton("Espada");
+		panel_1.add(btnEspada);
+
+		JToggleButton btnEscudo = new JToggleButton("Escudo");
+		panel_1.add(btnEscudo);
+
+		JToggleButton btnDardo = new JToggleButton("Dardo");
+		panel_1.add(btnDardo);
+
+		JToggleButton btnSaida = new JToggleButton("Saida");
+		panel_1.add(btnSaida);
+
+		frame.getContentPane().add(painelOK, BorderLayout.NORTH);
+		painelOK.setLayout(new CardLayout(0, 0));
 
 
 
 
 
 		JPanel painelMenuClose = new JPanel();
+		painelOK.add(painelMenuClose, "name_5833571883401");
 		painelMenuClose.setFocusable(false);
 		painelMenuClose.setBackground(Color.DARK_GRAY);
-		frame.getContentPane().add(painelMenuClose, BorderLayout.NORTH);
 
 		JButton close = new JButton("Fechar");
 		close.setFocusable(false);
@@ -281,6 +352,15 @@ public class JogoGUI {
 		painelMenuClose.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		painelMenuClose.add(menu);
 		painelMenuClose.add(close);
+
+		painelConfirmar.setBackground(Color.DARK_GRAY);
+		painelOK.add(painelConfirmar, "name_5841899527671");
+
+		JButton btnConfirmar = new JButton("Confirmar");
+		painelConfirmar.add(btnConfirmar);
+
+		JButton btnCancelar = new JButton("Cancelar");
+		painelConfirmar.add(btnCancelar);
 
 
 
