@@ -33,7 +33,7 @@ public class Dialog extends JDialog {
 	private int numDragoes=1;
 	private int tamanho=10;
 	private int modo=1; // 0 para aleatorio, 1 para estatico
-	private int anda=2;
+	private int anda=2;  //1 para sim 2 para nao
 	private int cospe=2;
 	private int dorme=2;
 	
@@ -409,8 +409,10 @@ public class Dialog extends JDialog {
 							
 						}
 						catch (NumberFormatException ex){
+							
 						 JOptionPane.showMessageDialog(null,"Carater em Nº dragões incorreto.\nValor 1 será usado.","Aviso",JOptionPane.WARNING_MESSAGE);	
 							numDragoes=1;
+							numeroDrag.setText("1");
 						}
 						
 						try {
@@ -419,7 +421,7 @@ public class Dialog extends JDialog {
 						}
 						catch (NumberFormatException ex){
 							 JOptionPane.showMessageDialog(null,"Carater em tamanho do labirinto incorreto.\nValor 10 será usado.","Aviso",JOptionPane.WARNING_MESSAGE);	
-							
+							tamanhoLab.setText("10");
 							tamanho=10;
 						}
 					
