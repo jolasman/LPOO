@@ -28,9 +28,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Color;
 import javax.swing.UIManager;
 import java.awt.GridLayout;
-import javax.swing.JLabel;
-import net.miginfocom.swing.MigLayout;
-import javax.swing.SpringLayout;
 import javax.swing.JSplitPane;
 import javax.swing.JToggleButton;
 
@@ -40,7 +37,7 @@ public class JogoGUI {
 
 	private JFrame frame;
 	private MazePanel painelJogo =new MazePanel();
-	private JPanel painelDesenho = new Construcao();
+	private Construcao painelDesenho = new Construcao();
 	JSplitPane splitPane = new JSplitPane();
 	Dialog dialog = new Dialog();
 	private boolean jogoIniciado=false;
@@ -210,7 +207,7 @@ public class JogoGUI {
 
 			}
 		});
-		
+
 		JPanel painelConfirmar = new JPanel();
 
 		JPanel painelOK = new JPanel();
@@ -222,8 +219,8 @@ public class JogoGUI {
 				painelOK.add(painelConfirmar);
 				painelOK.repaint();
 				painelOK.revalidate();
-				
-				
+
+
 				painelAvo.removeAll();
 				painelAvo.add(splitPane);
 				painelAvo.repaint();
@@ -286,28 +283,193 @@ public class JogoGUI {
 		panel_1.setLayout(new GridLayout(0, 1, 0, 0));
 
 		JToggleButton btnHeroi = new JToggleButton("Heroi");
-		panel_1.add(btnHeroi);
-
 		JToggleButton btnDragao = new JToggleButton("Dragao");
-		panel_1.add(btnDragao);
-
 		JToggleButton btnParede = new JToggleButton("Parede");
-		panel_1.add(btnParede);
 
 		JToggleButton btnChao = new JToggleButton("Chao/erva");
-		panel_1.add(btnChao);
-
 		JToggleButton btnEspada = new JToggleButton("Espada");
-		panel_1.add(btnEspada);
-
 		JToggleButton btnEscudo = new JToggleButton("Escudo");
-		panel_1.add(btnEscudo);
-
 		JToggleButton btnDardo = new JToggleButton("Dardo");
-		panel_1.add(btnDardo);
-
 		JToggleButton btnSaida = new JToggleButton("Saida");
+
+		panel_1.add(btnHeroi);
+		panel_1.add(btnDragao);
+		panel_1.add(btnParede);
+		panel_1.add(btnChao);
+		panel_1.add(btnEspada);
+		panel_1.add(btnEscudo);
+		panel_1.add(btnDardo);
 		panel_1.add(btnSaida);
+
+
+		btnHeroi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				if(btnHeroi.isSelected()){
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnChao.setSelected(false);
+					btnEspada.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+					if(painelDesenho.verificaVezes("heroi")==0)
+						painelDesenho.setConteudo("heroi");
+					else{
+						JOptionPane.showMessageDialog(null,"Só pode ter um Heroi.\nSubstitua o antigo heroi e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
+					}
+					btnHeroi.setSelected(false);
+				}
+				else
+					painelDesenho.setConteudo("nada");
+			}
+		});
+
+		btnDragao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(btnDragao.isSelected()){
+					btnHeroi.setSelected(false);
+					btnParede.setSelected(false);
+					btnChao.setSelected(false);
+					btnEspada.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+
+					painelDesenho.setConteudo("dragao");
+
+				}
+				else
+					painelDesenho.setConteudo("nada");
+
+
+			}
+		});
+
+		btnParede.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnParede.isSelected()){
+					btnHeroi.setSelected(false);
+					btnDragao.setSelected(false);
+					btnChao.setSelected(false);
+					btnEspada.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+					painelDesenho.setConteudo("parede");
+
+				}
+				else
+					painelDesenho.setConteudo("nada");
+
+			}
+		});
+
+		btnChao.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnChao.isSelected()){
+					btnHeroi.setSelected(false);
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnEspada.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+					painelDesenho.setConteudo("erva");
+
+				}
+				else
+					painelDesenho.setConteudo("nada");
+			}
+		});
+
+		btnEspada.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				if(painelDesenho.verificaVezes("espada")==0)
+					if(btnEspada.isSelected()){
+						btnDragao.setSelected(false);
+						btnParede.setSelected(false);
+						btnChao.setSelected(false);
+						btnHeroi.setSelected(false);
+						btnEscudo.setSelected(false); 
+						btnDardo.setSelected(false); 
+						btnSaida.setSelected(false);
+
+						painelDesenho.setConteudo("espada");
+						btnEspada.setSelected(false);
+					}
+					else{
+						painelDesenho.setConteudo("nada");
+						JOptionPane.showMessageDialog(null,"Só pode ter uma Espada.\nSubstitua a antiga espada e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
+					}
+			}
+		});
+		btnEscudo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnEscudo.isSelected()){
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnChao.setSelected(false);
+					btnHeroi.setSelected(false);
+					btnEspada.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+					if(painelDesenho.verificaVezes("escudo")==0)
+						painelDesenho.setConteudo("escudo");
+					else{
+						JOptionPane.showMessageDialog(null,"Só pode ter um Escudo.\nSubstitua o antigo escudo e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
+					}
+					btnEscudo.setSelected(false);
+				}
+				else
+					painelDesenho.setConteudo("nada");
+			}
+		});
+
+		btnDardo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnDardo.isSelected()){
+					btnHeroi.setSelected(false);
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnEspada.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnChao.setSelected(false); 
+					btnSaida.setSelected(false);
+					painelDesenho.setConteudo("dardo");
+
+				}
+				else
+					painelDesenho.setConteudo("nada");
+			}
+		});
+		btnSaida.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnSaida.isSelected()){
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnChao.setSelected(false);
+					btnHeroi.setSelected(false);
+					btnEspada.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnEscudo.setSelected(false);
+					if(painelDesenho.verificaVezes("saida")==0)
+						painelDesenho.setConteudo("saida");
+					else{
+						JOptionPane.showMessageDialog(null,"Só pode ter uma Saida.\nSubstitua a antiga saida e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
+					}
+					btnSaida.setSelected(false);
+				}
+				else
+					painelDesenho.setConteudo("nada");
+			}
+		});
+
+
+
+
 
 		frame.getContentPane().add(painelOK, BorderLayout.NORTH);
 		painelOK.setLayout(new CardLayout(0, 0));

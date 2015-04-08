@@ -15,14 +15,40 @@ import java.awt.event.MouseMotionListener;
 
 public class Construcao extends JPanel implements MouseListener, MouseMotionListener  {
 
-	char[][] labirinto = new char[10][10];
-	int tamanho=10;
+	private char[][] labirinto = new char[10][10];
+	private int tamanho=10;
+	private String conteudo;
+
 
 	BufferedImage wall;
 	BufferedImage hero; 
 	BufferedImage grass;
 	BufferedImage dragon;
 	BufferedImage sword;
+	public char[][] getLabirinto() {
+		return labirinto;
+	}
+
+	public void setLabirinto(char[][] labirinto) {
+		this.labirinto = labirinto;
+	}
+
+	public int getTamanho() {
+		return tamanho;
+	}
+
+	public void setTamanho(int tamanho) {
+		this.tamanho = tamanho;
+	}
+
+	public String getConteudo() {
+		return conteudo;
+	}
+
+	public void setConteudo(String conteudo) {
+		this.conteudo = conteudo;
+	}
+
 	BufferedImage dardo; //done
 	BufferedImage shield; //done
 	BufferedImage saidaImpossivel;
@@ -88,6 +114,52 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 		}
 
 	}
+	
+	public int verificaVezes(String nome){
+		
+		int contador=0;
+		for(int i=0;i<tamanho;i++){
+			for(int j=0;j<tamanho;j++){
+				
+				if(nome=="dragao"){
+					if(labirinto[i][j]=='D')
+						contador++;
+				}
+				else if(nome=="heroi"){
+					if(labirinto[i][j]=='H')
+						contador++;
+				}
+				else if(nome=="espada"){
+					if(labirinto[i][j]=='E')
+						contador++;
+				}
+				else if(nome=="escudo"){
+					if(labirinto[i][j]=='P')
+						contador++;
+				}
+				else if(nome=="dardo"){
+					if(labirinto[i][j]=='-')
+						contador++;
+				}
+				else if(nome=="branco"){
+					if(labirinto[i][j]=='1')
+						contador++;
+				}
+				else if(nome=="saida"){
+					if(labirinto[i][j]=='S')
+						contador++;
+				}
+		
+					
+				
+		
+			}
+		}
+		return contador;
+		
+		
+		
+	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
@@ -114,7 +186,23 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 		int tamanhoY=getHeight()/tamanho;
 
 		try{
-			labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='X';
+
+			if(conteudo=="parede")
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='X';
+			else if(conteudo=="dragao")
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='D';
+			else if(conteudo=="espada" && verificaVezes("espada")==0)
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='E';
+			else if(conteudo=="heroi" && verificaVezes("heroi")==0)
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='H';
+			else if(conteudo=="escudo"&& verificaVezes("escudo")==0)
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='P';
+			else if(conteudo=="dardo")
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='-';
+			else if(conteudo=="saida"&& verificaVezes("saida")==0)
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]='S';
+			else if(conteudo=="erva")
+				labirinto[e.getY()/tamanhoY][e.getX()/tamanhoX]=' ';
 		}
 		catch(Exception ex){}
 		repaint();

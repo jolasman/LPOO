@@ -400,8 +400,8 @@ public class Dialog extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
-				okButton.addActionListener(new ActionListener() {
+				JButton btnGravar = new JButton("Gravar");
+				btnGravar.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
 						try {
@@ -455,9 +455,9 @@ public class Dialog extends JDialog {
 						
 					}
 				});
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
+				btnGravar.setActionCommand("OK");
+				buttonPane.add(btnGravar);
+				getRootPane().setDefaultButton(btnGravar);
 			}
 		}
 	}
