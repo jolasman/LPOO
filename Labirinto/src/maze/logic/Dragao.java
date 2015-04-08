@@ -2,7 +2,11 @@ package maze.logic;
 import java.io.Serializable;
 import java.util.Random;
 
-
+/**
+ * class que trada os dados referentes aos dragoes.
+ * trata da posicao, movimentos e se cospe fogo, anda, adormece ou nao
+ *
+ */
 public class Dragao implements Serializable {
 
 	private static final char ESPACO = ' ';
@@ -21,53 +25,103 @@ public class Dragao implements Serializable {
 	private boolean emCimaEscudo=false;
 	private boolean emCimaDardo=false;
 	private boolean adormecido=false;
-
+	/**
+	 * retorna se o dragao esta em cima da espada
+	 * @return emCimaEspada
+	 */
 	public boolean isEmCimaEspada() {
 		return emCimaEspada;
 	}
+	/**
+	 * coloca o boolean emCimaEspada com o valor recebido no parametro
+	 * @param emCimaEspada
+	 */
 	public void setEmCimaEspada(boolean emCimaEspada) {
 		this.emCimaEspada = emCimaEspada;
 	}
+	/**
+	 * retorna se o dragao esta em cima do escudo
+	 * @return emCimaEscudo
+	 */
 	public boolean isEmCimaEscudo() {
 		return emCimaEscudo;
 	}
+	/**
+	 * coloca o boolean emCimaEscudo com o valor recebido no parametro
+	 * @param emCimaEscudo
+	 */
 	public void setEmCimaEscudo(boolean emCimaEscudo) {
 		this.emCimaEscudo = emCimaEscudo;
 	}
+	/**
+	 * retorna se o dragao esta em cima do dardo
+	 * @return emCimaDardo
+	 */
 	public boolean isEmCimaDardo() { 
 		return emCimaDardo;
 	}
+	/**
+	 * coloca o boolean emCimaDardo com o valor recebido no parametro
+	 * @param emCimaDardo
+	 */
 	public void setEmCimaDardo(boolean emCimaDardo) {
 		this.emCimaDardo = emCimaDardo;
 	}
 
-
-
-
+	/**
+	 * retorna se o dragao esta adormecido
+	 * @return adormecido
+	 */
 	public boolean isAdormecido() {
 		return adormecido;
 	}
+	/**
+	 * coloca o boolean adormecido com o valor recebido no parametro
+	 * @param adormecido
+	 */
 	public void setAdormecido(boolean adormecido) {
 		this.adormecido = adormecido;
 	}
 
-
+	/**
+	 * retorna se o dragao esta morto
+	 * @return morreu
+	 */
 	public boolean isMorreu() {
 		return morreu;
 	}
+	/**
+	 * coloca o boolean morreu com o valor recebido no parametro
+	 * @param morreu
+	 */
 	public void setMorreu(boolean morreu) {
 		this.morreu = morreu;
 	}
-
+	/**
+	 * retorna a posicao Y do dragao
+	 * @return dragaoY
+	 */
 	public int getDragaoY() {
 		return dragaoY;
 	}
+	/**
+	 * coloca o valor dragaoY com o valor recebido no parametro
+	 * @param dragaoY
+	 */
 	public void setDragaoY(int dragaoY) {
 		this.dragaoY = dragaoY;
 	}
+	/**
+	 * retorna a posicao X do dragao
+	 * @return dragaoX
+	 */
 	public int getDragaoX() {
 		return dragaoX;
 	}
+	/**
+	 * coloca o valor dragaoX com o valor recebido no parametro
+	 * @param dragaoX
+	 */
 	public void setDragaoX(int dragaoX) {
 		this.dragaoX = dragaoX;
 	}
@@ -82,7 +136,15 @@ public class Dragao implements Serializable {
 		
 	}
 	
-	
+	/**
+	 * cria um dragao no labirinto com as caracteristicas que lhe sao passadas como parametros
+	 * @param labirinto o labirinto onde vai ser criado o dragao
+	 * @param tamanho tamanho do labirinto
+	 * @param cospe se cospe fogo ou nao
+	 * @param anda se o dragao se movimenta ou nao
+	 * @param dorme se dorme ou nao
+	 * @param modo se o labirinto e aleatorio ou static
+	 */
 	public Dragao(char[][]labirinto, int tamanho,int cospe, int anda,int dorme, int modo) {
 
 		this.dorme=dorme;
