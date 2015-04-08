@@ -13,11 +13,14 @@ public class Heroi implements Serializable{
 	private  char carater='H';
 	private  boolean morto=false;
 
-	private  int modo;
+	private  int modo=0;
 	private  boolean fimJogo=false;
 
 
-
+	public Heroi(int x,int y){
+		X=x;
+		Y=y;
+	}
 
 	public  int getModo() {
 		return modo;

@@ -10,6 +10,11 @@ public class Escudo implements Serializable{
 	private boolean ativado =false;
 	
 	
+	public Escudo(int x, int Y){
+		escudoX=x;
+		escudoY=Y;
+	}
+	
 	public Escudo(char[][]labirinto, int tamanho){
 		
 		Random ran= new Random();

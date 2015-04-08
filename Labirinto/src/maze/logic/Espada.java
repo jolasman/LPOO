@@ -10,6 +10,12 @@ public class Espada implements Serializable{
 
 
 
+	public Espada(int x,int y){
+		espadaX=x;
+		espadaY=y;
+	}
+	
+	
 	public int getEspadaY() {
 		return espadaY;
 	}

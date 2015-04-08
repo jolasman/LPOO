@@ -9,6 +9,12 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import maze.logic.Dardos;
+import maze.logic.Dragao;
+import maze.logic.Escudo;
+import maze.logic.Espada;
+import maze.logic.Heroi;
+
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -19,19 +25,149 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 	private int tamanho=10;
 	private String conteudo;
 
+	private int cospe;
+	private int dorme;
+	private int anda;
+	
+	public int getCospe() {
+		return cospe;
+	}
+
+	public void setCospe(int cospe) {
+		this.cospe = cospe;
+	}
+
+	public int getDorme() {
+		return dorme;
+	}
+
+	public void setDorme(int dorme) {
+		this.dorme = dorme;
+	}
+
+	public int getAnda() {
+		return anda;
+	}
+
+	public void setAnda(int anda) {
+		this.anda = anda;
+	}
+
+	private int numDrag;
+	private Dragao[] dragoes;
+	private int numDardos;
+	private Dardos[] dardos;
+	private Escudo escudo;
+	private Heroi heroi;
+	private Espada espada;
+	public int getNumDrag() {
+		return numDrag;
+	}
+
+	public void setNumDrag(int numDrag) {
+		this.numDrag = numDrag;
+	}
+
+	public Dragao[] getDragoes() {
+		return dragoes;
+	}
+
+	public void setDragoes(Dragao[] dragoes) {
+		this.dragoes = dragoes;
+	}
+
+	public int getNumDardos() {
+		return numDardos;
+	}
+
+	public void setNumDardos(int numDardos) {
+		this.numDardos = numDardos;
+	}
+
+	public Dardos[] getDardos() {
+		return dardos;
+	}
+
+	public void setDardos(Dardos[] dardos) {
+		this.dardos = dardos;
+	}
+
+	public Escudo getEscudo() {
+		return escudo;
+	}
+
+	public void setEscudo(Escudo escudo) {
+		this.escudo = escudo;
+	}
+
+	public Heroi getHeroi() {
+		return heroi;
+	}
+
+	public void setHeroi(Heroi heroi) {
+		this.heroi = heroi;
+	}
+
+	public Espada getEspada() {
+		return espada;
+	}
+
+	public void setEspada(Espada espada) {
+		this.espada = espada;
+	}
+
+	public void setLabirinto(char[][] labirinto) {
+		this.labirinto = labirinto;
+	}
 
 	BufferedImage wall;
 	BufferedImage hero; 
 	BufferedImage grass;
 	BufferedImage dragon;
 	BufferedImage sword;
+
+
+	public void finaliza(){
+		int numDrag=verificaVezes("dragao");
+		dragoes= new Dragao[numDrag];
+		int indiceDrag=0;
+
+		int numDardos= verificaVezes("dardo");
+		dardos= new Dardos[numDardos];
+		int indiceDardos=0;
+
+		for(int j=0;j<tamanho;j++){
+
+			for(int i=0;i<tamanho;i++){
+
+				if(labirinto[i][j]=='H'){
+					heroi=new Heroi(j,i);
+				}
+				else if(labirinto[i][j]=='D'){
+					dragoes[indiceDrag]=new Dragao(j,i,cospe,anda,dorme);
+					indiceDrag++;
+				}
+				else if(labirinto[i][j]=='-'){
+					dardos[indiceDardos]=new Dardos(j,i);
+					indiceDardos++;
+				}
+				else if(labirinto[i][j]=='E'){
+					espada=new Espada(j,i);
+				}
+				else if(labirinto[i][j]=='P'){
+					escudo=new Escudo(j,i);
+				}
+
+
+
+			}
+		}
+	}
+
 	public char[][] getLabirinto() {
 		return labirinto;
 	}
 
-	public void setLabirinto(char[][] labirinto) {
-		this.labirinto = labirinto;
-	}
 
 	public int getTamanho() {
 		return tamanho;
@@ -39,7 +175,17 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 
 	public void setTamanho(int tamanho) {
 		this.tamanho = tamanho;
+		labirinto= new char[tamanho][tamanho];
+		for(int i=0;i<tamanho;i++){
+			for(int h=0;h<tamanho;h++){
+				labirinto[i][h]='1';
+			}
+		}
 	}
+
+
+
+
 
 	public String getConteudo() {
 		return conteudo;
@@ -114,13 +260,13 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 		}
 
 	}
-	
+
 	public int verificaVezes(String nome){
-		
+
 		int contador=0;
 		for(int i=0;i<tamanho;i++){
 			for(int j=0;j<tamanho;j++){
-				
+
 				if(nome=="dragao"){
 					if(labirinto[i][j]=='D')
 						contador++;
@@ -149,16 +295,16 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 					if(labirinto[i][j]=='S')
 						contador++;
 				}
-		
-					
-				
-		
+
+
+
+
 			}
 		}
 		return contador;
-		
-		
-		
+
+
+
 	}
 
 	@Override

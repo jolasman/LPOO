@@ -11,6 +11,11 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import maze.logic.Dardos;
+import maze.logic.Dragao;
+import maze.logic.Escudo;
+import maze.logic.Espada;
+import maze.logic.Heroi;
 import maze.logic.Jogo;
 import maze.logic.Maze;
 import maze.logic.MazeBuilder;
@@ -19,26 +24,26 @@ import maze.logic.MazeBuilder;
 public class MazePanel extends JPanel implements KeyListener {
 
 	private Jogo jogo;
-	
-	
-	
+
+
+
 	private int keyCima=KeyEvent.VK_UP;
 	private int keyBaixo=KeyEvent.VK_DOWN;
 	private int keyEsquerda=KeyEvent.VK_LEFT;
 	private int keyDireita=KeyEvent.VK_RIGHT;
-	
+
 
 	BufferedImage wall; //done
 	BufferedImage hero; //done
 	BufferedImage grass; //done
 	BufferedImage dragon; //done
 	BufferedImage sword; //done
-	
+
 
 	BufferedImage saidaPossivel; //done
 	BufferedImage saidaImpossivel;
-	
-	
+
+
 	BufferedImage dardo; //done
 	BufferedImage shield; //done
 	BufferedImage heroiArmado;  
@@ -58,13 +63,13 @@ public class MazePanel extends JPanel implements KeyListener {
 	BufferedImage dragonDormirEspada;
 	BufferedImage dragonDormirEscudo;
 	BufferedImage dragonDormirDardo;
-	
+
 	BufferedImage win;
 	BufferedImage lost;
 
 	private int X, Y;
 	private boolean acabou=false;
-	
+
 	public void initializeImages() throws IOException{
 		wall=ImageIO.read(new File("brick.jpg"));
 		grass=ImageIO.read(new File("grass1p.png"));
@@ -105,8 +110,18 @@ public class MazePanel extends JPanel implements KeyListener {
 		initializeImages();
 	}
 
+	public void newGameConstruido(char[][] labirint,int tamanho, int numDrag,Dragao[] dragoes,int numDardos,Dardos[] dardos,Escudo escudo,
+			Heroi heroi,Espada espada,int cospe,int dorme,int anda){
+
+		jogo= new Jogo(labirint, tamanho,  numDrag, dragoes, numDardos, dardos, escudo,
+				heroi, espada, cospe, dorme, anda);
+
+
+
+	}
+
 	public void newGame(int modo,int numDragoes,int tamanho, int cospe,int anda,int dorme ) throws IOException {
-		
+
 		MazeBuilder gerador= new MazeBuilder();
 		gerador.setSize(tamanho);
 		gerador.setMazeType(modo);
@@ -115,7 +130,7 @@ public class MazePanel extends JPanel implements KeyListener {
 
 
 	}
-	
+
 
 	public Jogo getJogo() {
 		return jogo;
@@ -130,16 +145,16 @@ public class MazePanel extends JPanel implements KeyListener {
 		int ratioV = getHeight()/jogo.getTAMANHO();
 
 
-		
+
 		for(int i=0;i<jogo.getTAMANHO();i++)
 			for(int j=0;j<jogo.getTAMANHO();j++)	
 			{
-				
-				
+
+
 				if((labirinto[j][i]=='K' || labirinto[j][i]=='O' || labirinto[j][i]=='A'
 						|| labirinto[j][i]=='H') && jogo.getHeroi().isMorto())
 					g.drawImage(heroMorto, i*ratioH, j*ratioV, ratioH,ratioV , null); 
-				
+
 				else if(labirinto[j][i]=='X')
 					g.drawImage(wall, i*ratioH, j*ratioV, ratioH,ratioV , null);
 				else if(labirinto[j][i]==' ')
@@ -175,7 +190,7 @@ public class MazePanel extends JPanel implements KeyListener {
 				else if(labirinto[j][i]=='w') 
 					g.drawImage(dragonDormirDardo, i*ratioH, j*ratioV, ratioH,ratioV , null);
 
-			
+
 
 
 				else if(jogo.getDardosDisponiveis() >0 && labirinto[j][i]=='H' )
@@ -192,13 +207,13 @@ public class MazePanel extends JPanel implements KeyListener {
 
 				else if(jogo.getDardosDisponiveis() ==0 && labirinto[j][i]=='O')
 					g.drawImage(heroiEscudado, i*ratioH, j*ratioV, ratioH,ratioV , null);
-				
+
 				else if(jogo.getDardosDisponiveis() >0 && labirinto[j][i]=='A')
 					g.drawImage(heroiEspadaDardo,i*ratioH, j*ratioV, ratioH,ratioV , null); 
-				
+
 				else if(jogo.getDardosDisponiveis() ==0 && labirinto[j][i]=='A')
 					g.drawImage(heroiArmado, i*ratioH, j*ratioV, ratioH,ratioV , null); 
-			
+
 
 
 			}
@@ -210,17 +225,17 @@ public class MazePanel extends JPanel implements KeyListener {
 	}
 
 	public void setKey(int cima, int esquerda, int direita, int baixo){
-		
+
 		keyCima=cima;
 		keyEsquerda=esquerda;
 		keyDireita=direita;
 		keyBaixo=baixo;
-		
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent arg0) {
-		
+
 		if(arg0.getKeyCode()==keyCima){
 			jogo.joga("w"); 
 		}
@@ -233,10 +248,10 @@ public class MazePanel extends JPanel implements KeyListener {
 		else if(arg0.getKeyCode()==keyEsquerda){
 			jogo.joga("a"); 
 		}
-		
+
 		repaint();
 		if(jogo.getHeroi().isMorto()||jogo.getHeroi().isFimJogo())
-				acabou=true;
+			acabou=true;
 
 
 	}

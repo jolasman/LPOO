@@ -35,6 +35,11 @@ public class Dardos implements Serializable{
 	}
 	
 	
+	public Dardos(int x, int y){
+		dardoY=y;
+		dardoX=x;
+	}
+	
 	public Dardos(char[][] labirinto,int tamanho){
 		
 		Random ran= new Random();

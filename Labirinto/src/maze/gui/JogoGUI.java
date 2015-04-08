@@ -215,6 +215,24 @@ public class JogoGUI {
 		JButton butaoDesenhar = new JButton("Desenhar Labirinto");
 		butaoDesenhar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+
+				boolean avanca=false;
+				int tamanho ;
+				do{
+					try{
+						tamanho= Integer.parseInt(JOptionPane.showInputDialog
+								(null,"Tamanho: ","Tamanho do Labirinto", JOptionPane.QUESTION_MESSAGE));
+						painelDesenho.setTamanho(tamanho);
+						avanca=true;
+
+					}catch(Exception ex){
+						JOptionPane.showMessageDialog(null,"Introduza número válido.","Aviso",JOptionPane.WARNING_MESSAGE);
+
+					}
+				}while(!avanca);
+
+
+
 				painelOK.removeAll();
 				painelOK.add(painelConfirmar);
 				painelOK.repaint();
@@ -387,23 +405,23 @@ public class JogoGUI {
 		btnEspada.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
-				if(painelDesenho.verificaVezes("espada")==0)
-					if(btnEspada.isSelected()){
-						btnDragao.setSelected(false);
-						btnParede.setSelected(false);
-						btnChao.setSelected(false);
-						btnHeroi.setSelected(false);
-						btnEscudo.setSelected(false); 
-						btnDardo.setSelected(false); 
-						btnSaida.setSelected(false);
-
+				if(btnEspada.isSelected()){
+					btnDragao.setSelected(false);
+					btnParede.setSelected(false);
+					btnChao.setSelected(false);
+					btnHeroi.setSelected(false);
+					btnEscudo.setSelected(false); 
+					btnDardo.setSelected(false); 
+					btnSaida.setSelected(false);
+					if(painelDesenho.verificaVezes("espada")==0)
 						painelDesenho.setConteudo("espada");
-						btnEspada.setSelected(false);
-					}
 					else{
-						painelDesenho.setConteudo("nada");
-						JOptionPane.showMessageDialog(null,"Só pode ter uma Espada.\nSubstitua a antiga espada e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
+						JOptionPane.showMessageDialog(null,"Só pode ter uma Espada.\nSubstitua a espada antiga e tente novamente","Excesso",JOptionPane.CLOSED_OPTION);
 					}
+					btnEspada.setSelected(false);
+				}
+				else
+					painelDesenho.setConteudo("nada");
 			}
 		});
 		btnEscudo.addActionListener(new ActionListener() {
@@ -519,6 +537,35 @@ public class JogoGUI {
 		painelOK.add(painelConfirmar, "name_5841899527671");
 
 		JButton btnConfirmar = new JButton("Confirmar");
+		btnConfirmar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				painelDesenho.setCospe(dialog.getCospe());
+				painelDesenho.setDorme(dialog.getDorme());
+				painelDesenho.setAnda(dialog.getAnda());
+				painelDesenho.finaliza();
+				
+				painelJogo.newGameConstruido(painelDesenho.getLabirinto(),painelDesenho.getTamanho(),painelDesenho.getNumDrag(),
+						painelDesenho.getDragoes(),painelDesenho.getNumDardos(),painelDesenho.getDardos(),
+						painelDesenho.getEscudo(),painelDesenho.getHeroi(),painelDesenho.getEspada(),dialog.getCospe(),
+						dialog.getDorme(),dialog.getAnda());
+
+				painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
+				
+				painelOK.removeAll();
+				painelOK.add(painelMenuClose);
+				painelOK.repaint();
+				painelOK.revalidate();
+
+
+				painelAvo.removeAll();
+				painelAvo.add(painelJogo);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+				painelJogo.requestFocus();
+				jogoIniciado=true;
+			}
+		});
 		painelConfirmar.add(btnConfirmar);
 
 		JButton btnCancelar = new JButton("Cancelar");

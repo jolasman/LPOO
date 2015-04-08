@@ -20,7 +20,7 @@ public class Dragao implements Serializable {
 	private boolean emCimaEspada=false;
 	private boolean emCimaEscudo=false;
 	private boolean emCimaDardo=false;
-	private boolean adormecido;	
+	private boolean adormecido=false;
 
 	public boolean isEmCimaEspada() {
 		return emCimaEspada;
@@ -72,6 +72,17 @@ public class Dragao implements Serializable {
 		this.dragaoX = dragaoX;
 	}
 
+	public Dragao(int x, int y,int cospe,int anda,int dorme){
+		dragaoX=x;
+		dragaoY=y;
+		this.dorme=dorme;
+		this.cospe=cospe;
+		this.anda=anda;
+		
+		
+	}
+	
+	
 	public Dragao(char[][]labirinto, int tamanho,int cospe, int anda,int dorme, int modo) {
 
 		this.dorme=dorme;
