@@ -7,8 +7,6 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.JToggleButton;
 
@@ -16,14 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTextPane;
 import javax.swing.JFormattedTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JSlider;
-import javax.swing.JList;
-import javax.swing.AbstractListModel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerListModel;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 

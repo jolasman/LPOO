@@ -113,6 +113,8 @@ public class MazePanel extends JPanel implements KeyListener {
 	public void newGameConstruido(char[][] labirint,int tamanho, int numDrag,Dragao[] dragoes,int numDardos,Dardos[] dardos,Escudo escudo,
 			Heroi heroi,Espada espada,int cospe,int dorme,int anda){
 
+	
+		
 		jogo= new Jogo(labirint, tamanho,  numDrag, dragoes, numDardos, dardos, escudo,
 				heroi, espada, cospe, dorme, anda);
 
@@ -236,6 +238,9 @@ public class MazePanel extends JPanel implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 
+		
+		try{
+		
 		if(arg0.getKeyCode()==keyCima){
 			jogo.joga("w"); 
 		}
@@ -252,7 +257,8 @@ public class MazePanel extends JPanel implements KeyListener {
 		repaint();
 		if(jogo.getHeroi().isMorto()||jogo.getHeroi().isFimJogo())
 			acabou=true;
-
+		}
+		catch(Exception e){};
 
 	}
 

@@ -539,36 +539,61 @@ public class JogoGUI {
 		JButton btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				painelDesenho.setCospe(dialog.getCospe());
-				painelDesenho.setDorme(dialog.getDorme());
-				painelDesenho.setAnda(dialog.getAnda());
-				painelDesenho.finaliza();
-				
-				painelJogo.newGameConstruido(painelDesenho.getLabirinto(),painelDesenho.getTamanho(),painelDesenho.getNumDrag(),
-						painelDesenho.getDragoes(),painelDesenho.getNumDardos(),painelDesenho.getDardos(),
-						painelDesenho.getEscudo(),painelDesenho.getHeroi(),painelDesenho.getEspada(),dialog.getCospe(),
-						dialog.getDorme(),dialog.getAnda());
-
-				painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
-				
-				painelOK.removeAll();
-				painelOK.add(painelMenuClose);
-				painelOK.repaint();
-				painelOK.revalidate();
 
 
-				painelAvo.removeAll();
-				painelAvo.add(painelJogo);
-				painelAvo.repaint();
-				painelAvo.revalidate();
-				painelJogo.requestFocus();
-				jogoIniciado=true;
+				if(0<painelDesenho.verificaVezes("branco")){
+
+					JOptionPane.showMessageDialog(null,"Ainda existem espaços em branco. Por favor preencha.","Aviso",JOptionPane.CLOSED_OPTION);
+
+				}else{
+					painelDesenho.setCospe(dialog.getCospe());
+					painelDesenho.setDorme(dialog.getDorme());
+					painelDesenho.setAnda(dialog.getAnda());
+					painelDesenho.finaliza();
+
+
+					painelJogo.newGameConstruido(painelDesenho.getLabirinto(),painelDesenho.getTamanho(),painelDesenho.getNumDrag(),
+							painelDesenho.getDragoes(),painelDesenho.getNumDardos(),painelDesenho.getDardos(),
+							painelDesenho.getEscudo(),painelDesenho.getHeroi(),painelDesenho.getEspada(),dialog.getCospe(),
+							dialog.getDorme(),dialog.getAnda());
+
+					painelJogo.setKey(dialog.getKeyCima(), dialog.getKeyEsquerda(), dialog.getKeyDireita(), dialog.getKeyBaixo());
+
+
+					painelOK.removeAll();
+					painelOK.add(painelMenuClose);
+					painelOK.repaint();
+					painelOK.revalidate();
+
+
+					painelAvo.removeAll();
+					painelAvo.add(painelJogo);
+					painelAvo.repaint();
+					painelAvo.revalidate();
+					painelJogo.requestFocus();
+					jogoIniciado=true;
+				}
 			}
 		});
 		painelConfirmar.add(btnConfirmar);
 
 		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				painelOK.removeAll();
+				painelOK.add(painelMenuClose);
+				painelOK.repaint();
+				painelOK.revalidate();
+
+				painelAvo.removeAll();
+				painelAvo.add(painelPai);
+				painelAvo.repaint();
+				painelAvo.revalidate();
+
+
+
+			}
+		});
 		painelConfirmar.add(btnCancelar);
 
 

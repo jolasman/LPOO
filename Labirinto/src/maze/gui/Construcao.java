@@ -129,10 +129,14 @@ public class Construcao extends JPanel implements MouseListener, MouseMotionList
 
 	public void finaliza(){
 		int numDrag=verificaVezes("dragao");
+		this.numDrag=numDrag;
+		
 		dragoes= new Dragao[numDrag];
 		int indiceDrag=0;
 
+		
 		int numDardos= verificaVezes("dardo");
+		this.numDardos=numDardos;
 		dardos= new Dardos[numDardos];
 		int indiceDardos=0;
 

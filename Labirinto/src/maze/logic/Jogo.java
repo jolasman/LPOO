@@ -85,6 +85,8 @@ public class Jogo implements Serializable{
 	public  void setHeroi(Heroi heroi) {
 		this.heroi = heroi;
 	}
+	
+	
 
 	public Jogo(char[][] labirint,int tamanho, int numDrag,Dragao[] dragoes,int numDardos,Dardos[] dardos,Escudo escudo,
 			Heroi heroi,Espada espada,int cospe,int dorme,int anda){
@@ -92,6 +94,7 @@ public class Jogo implements Serializable{
 		labirinto=labirint;
 		TAMANHO=tamanho;
 		numDragoes=numDrag;
+		Dragoes= new Dragao[numDrag];
 		Dragoes=dragoes;
 		
 		this.numDardos=numDardos;
@@ -104,6 +107,14 @@ public class Jogo implements Serializable{
 		this.dorme=dorme;
 		this.anda=anda;
 		
+	}
+
+public int getNumDragoes() {
+		return numDragoes;
+	}
+
+	public void setNumDragoes(int numDragoes) {
+		this.numDragoes = numDragoes;
 	}
 
 /**
